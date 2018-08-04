@@ -1,14 +1,14 @@
+/components/search/render/div/div/div.attributes/label.speaker:
+  keys:
+    - children
+    - className
+    - htmlFor
 /components/featured:
   keys:
     - state
     - hooks
     - render
     - styles
-/components/search/render/div/div/div.attributes/label.conduct:
-  keys:
-    - children
-    - className
-    - htmlFor
 /pages:
   keys:
     - about
@@ -1665,7 +1665,7 @@
     - name
     - onChange
     - type
-/components/search/render/div/div/div.attributes/label.speaker:
+/components/search/render/div/div/div.attributes/label.conduct:
   keys:
     - children
     - className
