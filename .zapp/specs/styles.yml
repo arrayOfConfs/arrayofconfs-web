@@ -1,0 +1,18 @@
+'@import':
+  - 'https://fonts.googleapis.com/css?family=Quicksand:400,700|Space+Mono'
+button:
+  selectors:
+    - button
+  cursor: pointer
+  outline: none
+fonts:
+  selectors:
+    - body
+    - button
+    - input
+    - textarea
+  fontFamily: Quicksand
+link:
+  selectors:
+    - a
+  color: red

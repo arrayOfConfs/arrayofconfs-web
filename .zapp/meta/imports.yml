@@ -1,0 +1,25 @@
+/arrayofconfs:
+  keys:
+    - zappjs
+    - arrayofconfs
+/zappjs/readme: {}
+/zappjs/npm: {}
+/zappjs/react: {}
+/zappjs/webpack: {}
+/zappjs:
+  keys:
+    - zappjs
+    - arrayofconfs
+/:
+  keys:
+    - zappjs
+    - arrayofconfs
+/arrayofconfs/api:
+  keys:
+    - zappjs
+    - arrayofconfs
+/arrayofconfs/api/filter:
+  keys:
+    - specs
+/arrayofconfs/api/filter/0: {}
+/zappjs/axios: {}

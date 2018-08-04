@@ -1,0 +1,499 @@
+about:
+  render:
+    div:
+      className: about
+      div:
+        className: content
+        h1:
+          children: About arrayOfConfs
+        p:
+          children: Test test test...
+  styles:
+    about:
+      backgroundColor: '#933ec5'
+      paddingTop: 132px
+    content:
+      maxWidth: 1000px
+      margin: 0 auto
+      padding: 40px 0
+contact:
+  render:
+    div:
+      className: contact
+      div:
+        className: content
+        h1:
+          children: Contact Us
+        p:
+          children: Test test test...
+  styles:
+    contact:
+      backgroundColor: red
+      paddingTop: 132px
+    content:
+      maxWidth: 1000px
+      margin: 0 auto
+      padding: 40px 0
+home:
+  imports:
+    - List
+    - Search
+    - moment
+    - Featured
+    - haversine
+  hooks:
+    didMount: this.props.loadConferences();
+  props:
+    items:
+      state: conferences.items
+      type: array
+    loadConferences:
+      dispatch: loadConferences
+      type: func
+    filterValue:
+      type: string
+      state: filter.value
+    filterSort:
+      type: string
+      state: filter.sort
+    filterDiversity:
+      type: bool
+      state: filter.diversity
+    filterConduct:
+      type: bool
+      state: filter.conduct
+    filterSpeaker:
+      type: bool
+      state: filter.speaker
+    latitude:
+      type: number
+      state: geocode.latitude
+    longitude:
+      type: number
+      state: geocode.longitude
+    filterDistance:
+      type: string
+      state: filter.distance
+    filterLocation:
+      type: string
+      state: filter.location
+    filterOrder:
+      type: string
+      state: filter.order
+  render: |-
+    <div className={styles.home}>
+      <Featured />
+      <Search />
+      <List
+        tag={this.props.router.params.tagName}
+        items={
+          this.props.items
+            .filter(item => {
+              if (
+                this.props.filterDistance !== 'any'
+                &&
+                this.props.filterLocation
+                &&
+                this.props.latitude !== -1
+                &&
+                this.props.longitude !== -1
+                &&
+                haversine(
+                  {
+                    latitude: this.props.latitude,
+                    longitude: this.props.longitude
+                  },
+                  {
+                    latitude: item.latitude,
+                    longitude: item.longitude
+                  },
+                  {
+                    unit: 'mile'
+                  }
+                ) > parseInt(this.props.filterDistance, 10)
+              ) {
+                return false;
+              }
+              if (
+                (this.props.filterDiversity && !item.diversityScholarship)
+                ||
+                (this.props.filterConduct && !item.codeOfConduct)
+                ||
+                (this.props.filterSpeaker && !item.speakerRegistration)
+              ) {
+                return false;
+              }
+              if (
+                this.props.router.params
+                  && this.props.router.params.tagName
+                  && !item.tags.split(' ').includes(this.props.router.params.tagName)
+              ) {
+                return false;
+              }
+              return !this.props.filterValue
+                || new RegExp(this.props.filterValue, 'i').test(item.name)
+                || new RegExp(this.props.filterValue, 'i').test(item.tags);
+            })
+            .sort((a, b) => {
+              if (this.props.filterOrder === 'name') {
+                const aName = a.name.toLowerCase();
+                const bName = b.name.toLowerCase();
+                if (this.props.filterSort === 'desc') {
+                  if (aName > bName) {
+                    return -1;
+                  } else if (aName < bName) {
+                    return 1;
+                  }
+                }
+                if (aName < bName) {
+                  return -1;
+                } else if (aName > bName) {
+                  return 1;
+                }
+                return 0;
+              }
+              const aDate = moment(a.dates.split(' ')[0], 'M/D');
+              const bDate = moment(b.dates.split(' ')[0], 'M/D');
+              if (this.props.filterSort === 'desc') {
+                if (aDate > bDate) {
+                  return -1;
+                } else if (aDate < bDate) {
+                  return 1;
+                }
+              }
+              if (aDate < bDate) {
+                return -1;
+              } else if (aDate > bDate) {
+                return 1;
+              }
+              return 0;
+            })
+          }
+      />
+    </div>
+  styles:
+    form:
+      padding: 0 0 20px 0
+    item:
+      padding: 0 0 20px 0
+    list:
+      listStyleType: none
+      margin: 0
+      padding: 0
+    name:
+      fontWeight: bold
+submit:
+  imports:
+    - Heading
+  events:
+    submit: this.props.submitConference(this.state);
+  props:
+    submitConference:
+      type: func
+      dispatch: submitConference
+    isLoading:
+      type: bool
+      state: submit.isLoading
+    isComplete:
+      type: bool
+      state: submit.isComplete
+  state:
+    conduct:
+      type: string
+      default: 'https://'
+    description:
+      type: string
+    diversity:
+      type: string
+      default: 'https://'
+    facebook:
+      type: string
+    fromDate:
+      type: string
+    github:
+      type: string
+    isComplete:
+      type: boolean
+    location:
+      type: string
+    multiDate:
+      type: boolean
+    name:
+      type: string
+    tags:
+      type: string
+    toDate:
+      type: string
+    twitter:
+      type: string
+    website:
+      type: string
+      default: 'https://'
+    authorEmail:
+      type: string
+    authorName:
+      type: string
+  render:
+    div:
+      Heading:
+        title: Add a Conf
+        subtitle: Submit a conference to our database
+      If.complete:
+        condition: '{this.props.isComplete}'
+        div:
+          className: complete
+          children: Thank you for your submission!
+      form:
+        className: form
+        onSubmit: submit
+        h3.yourName:
+          children: Your Info
+          className: title
+        div.yourName:
+          className: field
+          label:
+            children: Your Name
+            className: label
+            htmlFor: yourName
+          input:
+            autoFocus: true
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: authorName
+            onChange: change
+            value: '{this.state.authorName}'
+        div.yourEmail:
+          className: field
+          label:
+            children: Your Email
+            className: label
+            htmlFor: yourName
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: authorEmail
+            onChange: change
+            value: '{this.state.authorEmail}'
+        h3.confInfo:
+          children: Conf Info
+          className: title
+        div.name:
+          className: field
+          label:
+            children: Name
+            className: label
+            htmlFor: name
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: name
+            onChange: change
+            value: '{this.state.name}'
+        div.location:
+          className: field
+          label:
+            children: Location
+            className: label
+            htmlFor: location
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: location
+            onChange: change
+            value: '{this.state.location}'
+        div.description:
+          className: field
+          label:
+            children: Description
+            className: label
+            htmlFor: description
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: description
+            onChange: change
+            value: '{this.state.description}'
+        div.tags:
+          className: field
+          label:
+            children: Tags
+            className: label
+            htmlFor: tags
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: tags
+            onChange: change
+            placeholder: '(Example: javascript devops womenintech)'
+            value: '{this.state.tags}'
+        h3.dates:
+          children: Date Info
+          className: title
+        div.fromDate:
+          className: field
+          label:
+            children: From Date
+            className: label
+            htmlFor: fromDate
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: fromDate
+            onChange: change
+            value: '{this.state.fromDate}'
+        div.multiDate:
+          className: field
+          label:
+            children: Multiple Dates?
+            className: label
+            htmlFor: multiDate
+          input:
+            checked: '{this.state.multiDate}'
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: multiDate
+            onChange: change
+            type: checkbox
+        If:
+          condition: '{this.state.multiDate}'
+          div.toDate:
+            className: field
+            label:
+              children: To Date
+              className: label
+              htmlFor: toDate
+            input:
+              className: value
+              disabled: '{this.props.isComplete}'
+              name: toDate
+              onChange: change
+              value: '{this.state.toDate}'
+        h3.links:
+          children: Links
+          className: title
+        div.website:
+          className: field
+          label:
+            children: Website
+            className: label
+            htmlFor: website
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: website
+            onChange: change
+            value: '{this.state.website}'
+        div.conduct:
+          className: field
+          label:
+            children: Code of Conduct
+            className: label
+            htmlFor: website
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: conduct
+            onChange: change
+            value: '{this.state.conduct}'
+        div.diversity:
+          className: field
+          label:
+            children: Diversity Scholarship
+            className: label
+            htmlFor: diversity
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: diversity
+            onChange: change
+            value: '{this.state.diversity}'
+        h3.social:
+          children: Social
+          className: title
+        div.facebook:
+          className: field
+          label:
+            children: Facebook
+            className: label
+            htmlFor: facebook
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: facebook
+            onChange: change
+            value: '{this.state.facebook}'
+        div.twitter:
+          className: field
+          label:
+            children: Twitter
+            className: label
+            htmlFor: twitter
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: twitter
+            onChange: change
+            value: '{this.state.twitter}'
+        div.github:
+          className: field
+          label:
+            children: GitHub
+            className: label
+            htmlFor: github
+          input:
+            className: value
+            disabled: '{this.props.isComplete}'
+            name: github
+            onChange: change
+            value: '{this.state.github}'
+        div.actions:
+          className: actions
+          button:
+            children: '{this.props.isLoading ? ''Loading...'' : ''Submit Conf''}'
+            className: button
+            disabled: '{this.props.isLoading || this.props.isComplete}'
+  styles:
+    actions:
+      padding: 20px
+      textAlign: center
+    button:
+      backgroundColor: '#000'
+      border: none
+      borderRadius: 20px
+      color: '#FFF'
+      cursor: pointer
+      fontSize: 18px
+      padding: 10px 20px
+      transition: transform .5s
+    'button:hover':
+      transform: scale(1.1)
+    'button[disabled]':
+      backgroundColor: '#999'
+      cursor: default
+    complete:
+      backgroundColor: '#CCFFCC'
+      padding: 20px
+    field:
+      padding: 20px 0
+      display: flex
+    form:
+      maxWidth: 1000px
+      margin: 0 auto
+      padding: 20px
+    label:
+      width: 30%
+      fontWeight: bold
+    title:
+      color: '#933ec5'
+    value:
+      width: 70%
+      border: none
+      borderBottom: '1px #CCC solid'
+      outline: none
+      fontSize: 16px
+    'value:focus':
+      borderBottom: '1px #000 solid'
+    'value[disabled]':
+      color: green
+      borderBottom: 1px green solid
+      backgroundColor: '#EEFFEE'

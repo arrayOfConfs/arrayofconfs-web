@@ -1,0 +1,12 @@
+/:
+  paths:
+    about:
+      page: about
+    contact:
+      page: contact
+    submit:
+      page: submit
+    tags:
+      page: home
+    'tags/:tagName':
+      page: home

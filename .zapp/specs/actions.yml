@@ -1,0 +1,117 @@
+geocode:
+  imports:
+    - axios
+  arguments:
+    location: ''
+  handler: >-
+    dispatch({
+      type: 'CLEAR_GEOCODE'
+    });
+
+
+    if (!location) {
+      return;
+    }
+
+
+    const key = 'AIzaSyD991-A9-s6bIIyvBGuRwvSYxkNaG7pc_8';
+
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${key}`)
+      .then((result) => {
+        if (!result || !result.data || !result.data.results || !result.data.results.length) {
+          dispatch({
+            type: 'CLEAR_GEOCODE'
+          });
+          return;
+        }
+        dispatch({
+          type: 'GEOCODE',
+          latitude: result.data.results[0].geometry.location.lat,
+          longitude: result.data.results[0].geometry.location.lng
+        });
+      });
+loadConferences:
+  imports:
+    - ClientAPI
+  handler: |-
+    const response = await ClientAPI.getConferences();
+
+    dispatch({
+      type: 'LOAD_CONFERENCES_RES',
+      data: {
+        conferences: response.data.conferences
+      }
+    });
+resetSubmission:
+  handler: |-
+    dispatch({
+      type: 'RESET_SUBMISSION'
+    });
+submitConference:
+  imports:
+    - ClientAPI
+  arguments:
+    authorEmail: ''
+    authorName: ''
+    conduct: ''
+    description: ''
+    diversity: ''
+    facebook: ''
+    fromDate: ''
+    github: ''
+    location: ''
+    name: ''
+    tags: ''
+    toDate: ''
+    twitter: ''
+    website: ''
+  handler: |-
+    dispatch({
+      type: 'SUBMIT_CONFERENCE_REQ'
+    });
+
+    const response = await ClientAPI.postConferences({
+      body: {
+        authorEmail,
+        authorName,
+        conduct,
+        dates: `${fromDate}${toDate ? ` - ${toDate}` : ''}`,
+        description,
+        diversity,
+        facebook,
+        github,
+        location,
+        name,
+        tags,
+        twitter,
+        website
+      }
+    });
+
+    dispatch({
+      type: 'SUBMIT_CONFERENCE_RES'
+    });
+updateFilter:
+  arguments:
+    conduct: false
+    diversity: false
+    order: date
+    sort: asc
+    speaker: false
+    value: ''
+    distance: ''
+    location: ''
+  handler: |-
+    dispatch({
+      type: 'UPDATE_FILTER',
+      data: {
+        conduct,
+        distance,
+        diversity,
+        location,
+        order,
+        sort,
+        speaker,
+        value
+      }
+    });

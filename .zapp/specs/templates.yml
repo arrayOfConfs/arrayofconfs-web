@@ -1,0 +1,15 @@
+main:
+  render: |-
+    <div>
+      <Header />
+      {this.props.children}
+      <Footer />
+    </div>
+  imports:
+    - Header
+    - Footer
+  styles:
+    header:
+      backgroundColor: red
+      color: '#FFF'
+      padding: 20px

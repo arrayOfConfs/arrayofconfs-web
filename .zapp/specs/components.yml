@@ -1,0 +1,961 @@
+featured:
+  state:
+    featuredConfs:
+      type: array
+      default:
+        - name: 'AWS re:Invent'
+          dates: Nov 26 - 30
+          location: 'Las Vegas, NV'
+          url: 'https://reinvent.awsevents.com'
+          image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/aws-reinvent.jpg'
+        - name: GitHub Universe
+          dates: Oct 16 - 17
+          location: 'San Francisco, CA'
+          url: 'https://githubuniverse.com'
+          image: >-
+            https://s3.amazonaws.com/arrayofconfs-prod-static/github-universe.jpg
+        - name: DeveloperWeek Austin
+          dates: Nov 6 - 8
+          location: 'Austin, TX'
+          url: 'http://www.developerweek.com/Austin'
+          image: >-
+            https://s3.amazonaws.com/arrayofconfs-prod-static/developerweek-austin.jpg
+    selectedConfIndex:
+      type: number
+  hooks:
+    didMount: |-
+      this.setState({
+        selectedConfIndex: 0
+      });
+      setInterval(() => {
+        const newIndex = this.state.selectedConfIndex === this.state.featuredConfs.length - 1
+            ? 0
+            : this.state.selectedConfIndex + 1;
+        this.setState({
+          selectedConfIndex: newIndex
+        });
+      }, 5000);
+  render:
+    div:
+      className: featured
+      $map:
+        array: this.state.featuredConfs
+        element: conf
+        index: confIndex
+        div:
+          key: '{`conf-${confIndex}`}'
+          className:
+            - conf
+            - condition: confIndex === this.state.selectedConfIndex
+              className: selected
+          props:
+            style:
+              backgroundImage: '`url(${conf.image})`'
+          div:
+            className: details
+            a.name:
+              children: '{conf.name}'
+              className: name
+              href: '{conf.url}'
+              rel: noopener noreferer
+              target: _blank
+            div.city:
+              children: '{conf.dates} // {conf.location}'
+              className: city
+  styles:
+    city:
+      fontSize: 12px
+    conf:
+      backgroundColor: '#EEE'
+      backgroundPosition: center center
+      backgroundSize: cover
+      height: 100%
+      left: 0
+      opacity: 0
+      position: absolute
+      top: 0
+      width: 100%
+      transition: opacity .5s
+      pointerEvents: none
+    conf.selected:
+      opacity: 0.5
+      pointerEvents: auto
+    details:
+      maxWidth: 1040px
+      textAlign: right
+      color: '#FFF'
+      margin: 0 auto
+      padding: 400px 20px 0 20px
+    featured:
+      position: relative
+      height: 500px
+      backgroundColor: '#000'
+    name:
+      color: '#FFF'
+      fontWeight: bold
+footer:
+  render:
+    footer:
+      className: footer
+      div.zapp:
+        children: >-
+          Generated with ♥️ by <a className={styles.link}
+          href="https://editor.zappjs.com/arrayofconfs/web" rel="noopener
+          noreferer" target="_blank">⚡️ZappJS</a>
+        className: zapp
+      div:
+        children: '&copy; 2018 arrayOfConfs'
+        className: copyright
+  styles:
+    footer:
+      backgroundColor: '#333'
+      color: '#FFF'
+      padding: 50px
+      textAlign: center
+    copyright:
+      fontSize: 12px
+      color: '#999'
+    heart:
+      color: '#FF6666'
+    zapp:
+      padding: '0'
+    link:
+      color: yellow
+header:
+  imports:
+    - Link
+  events:
+    submit: ''
+  render:
+    header:
+      className: header
+      div.main:
+        className: headerContent
+        div.title:
+          className: title
+          tag: Link
+          to: /
+          div.main:
+            children: 'conf[]'
+            className: mainTitle
+          div.logo:
+            className: logo
+          div.sub:
+            children: arrayOfConfs
+            className: subTitle
+        div.right:
+          className: right
+          Link.home:
+            children: Home
+            className:
+              - navItem
+            to: /
+          Link.about:
+            children: About
+            className:
+              - navItem
+            to: about
+          Link.contact:
+            children: Contact
+            className:
+              - navItem
+            to: contact
+          a.twitter:
+            className: twitter
+            href: 'https://twitter.com/arrayOfConfs'
+            target: _blank
+            rel: noopener noreferer
+          Link.submit:
+            children: Add a Conf
+            className:
+              - button
+              - submit
+            to: submit
+  styles:
+    button:
+      border: none
+      borderRadius: 30px
+      padding: 10px 20px
+      fontSize: 10px
+      color: '#000'
+      transition: 'box-shadow .5s, transform .5s'
+      backgroundColor: '#FFF'
+      display: inline-block
+    'button:hover':
+      transform: scale(1.05)
+      textDecoration: none
+      boxShadow: '0 0 20px rbga(0, 0, 0, .5)'
+    header:
+      color: '#FFF'
+      textAlign: center
+      backgroundSize: cover
+      backgroundRepeat: no-repeat
+      backgroundPosition: center center
+      position: absolute
+      width: 100%
+      zIndex: '1000'
+    headerContent:
+      alignItems: center
+      display: flex
+      margin: 0 auto
+      maxWidth: 1040px
+      overflow: auto
+      padding: 40px 20px
+    info:
+      textAlign: right
+      padding: 20px 20px 40px 20px
+      maxWidth: 1000px
+      margin: 0 auto
+    logo:
+      backgroundImage: url(/icons/logo.svg)
+      backgroundPosition: center center
+      backgroundRepeat: no-repeat
+      backgroundSize: contain
+      display: inline-block
+      height: 32px
+      marginRight: 10px
+      verticalAlign: middle
+      width: 24px
+    mainTitle:
+      fontFamily: Space Mono
+      fontSize: 32px
+      backgroundColor: '#FFF'
+      borderRadius: 5px
+      color: '#66ccff'
+      width: 150px
+      margin: 0 auto 5px auto
+      display: none
+    right:
+      width: 50%
+      textAlign: right
+    subTitle:
+      fontSize: 17px
+      letterSpacing: 2px
+      display: inline-block
+      verticalAlign: middle
+    submit:
+      fontSize: 10px
+      fontWeight: bold
+      letterSpacing: 2px
+      textTransform: uppercase
+      verticalAlign: middle
+    title:
+      fontSize: 16px
+      margin: '0'
+      padding: 10px 0
+      textAlign: left
+      width: 50%
+      color: '#FFF'
+      transition: transform .5s
+      fontWeight: bold
+    'title:hover':
+      textDecoration: none
+    twitter:
+      backgroundImage: url(/icons/twitter.svg)
+      backgroundRepeat: no-repeat
+      backgroundSize: 24px auto
+      display: inline-block
+      height: 24px
+      marginRight: 20px
+      verticalAlign: middle
+      width: 24px
+      transition: transform .5s
+    'twitter:hover':
+      transform: scale(1.2)
+    navItem:
+      color: '#FFF'
+      marginRight: 20px
+      display: none
+heading:
+  render:
+    div:
+      className: heading
+      h2:
+        children: '{this.props.title}'
+        className: title
+      h3:
+        children: '{this.props.subtitle}'
+        className: subtitle
+  styles:
+    heading:
+      backgroundColor: '#933ec5'
+      color: '#FFF'
+      padding: 150px 0 100px 0
+      textAlign: center
+    subtitle:
+      fontWeight: normal
+list:
+  imports:
+    - moment
+    - Link
+    - FileSaver
+  events:
+    addToCalendar: |-
+      const dates = data.dates.split(' - ');
+
+      const content = [
+        {
+          key: 'BEGIN',
+          value: 'VCALENDAR'
+        },
+        {
+          key: 'VERSION',
+          value: '2.0'
+        },
+        {
+          key: 'BEGIN',
+          value: 'VEVENT'
+        },
+        {
+          key: 'DTSTAMP',
+          value: moment().format('YYYYMMDDTHHmmssZ')
+        },
+        {
+          key: 'STATUS',
+          value: 'CONFIRMED'
+        },
+        {
+          key: 'UID',
+          value: `${data.id}arrayofconfscom`
+        },
+        {
+          key: 'DTSTART;VALUE=DATE',
+          value: moment(dates[0], 'M/D').format('YYYYMMDD')
+        },
+        {
+          key: 'DTEND;VALUE=DATE',
+          value: moment(dates[1] || dates[0], 'M/D').format('YYYYMMDD')
+        },
+        {
+          key: 'SUMMARY',
+          value: data.name
+        },
+        {
+          key: 'DESCRIPTION',
+          value: data.description || 'There is no description.'
+        },
+        {
+          key: 'X-ALT-DESC;FMTTYPE=text/html',
+          value: data.description || 'There is no description.'
+        },
+        {
+          key: 'LOCATION',
+          value: data.location
+        },
+        {
+          key: 'BEGIN',
+          value: 'VALARM'
+        },
+        {
+          key: 'TRIGGER',
+          value: '-PT15M'
+        },
+        {
+          key: 'ACTION',
+          value: 'DISPLAY'
+        },
+        {
+          key: 'END',
+          value: 'VALARM'
+        },
+        {
+          key: 'TRANSP',
+          value: 'OPAQUE'
+        },
+        {
+          key: 'END',
+          value: 'VEVENT'
+        },
+        {
+          key: 'END',
+          value: 'VCALENDAR'
+        }
+      ]
+        .map((info) => {
+          return `${info.key}:${info.value}`
+        })
+        .join('\n');
+
+      const file = new File(
+        [content],
+        `${data.name}.ics`,
+        {
+          type: 'text/calendar'
+        }
+      );
+      FileSaver.saveAs(file);
+    toggle: |-
+      if (data.name === this.state.open) {
+        this.setState({
+          open: ''
+        });
+        return;
+      }
+      this.setState({
+        open: data.name
+      });
+  props:
+    tag:
+      type: string
+  state:
+    open:
+      type: string
+  render:
+    list:
+      className: list
+      tag: ul
+      $map:
+        array: this.props.items
+        method: map
+        element: item
+        li:
+          key: '{item.website}'
+          className:
+            - item
+            - condition: this.state.open === item.name
+              className: highlight
+          div.row:
+            className: row
+            div.calendar:
+              className: calendar
+              div.month:
+                children: |-
+                  {
+                    moment(
+                      item.dates.split('/')[0],
+                      'M'
+                    )
+                      .format('MMM')
+                  }
+                className: month
+              div.date:
+                children: |-
+                  {
+                    item.dates
+                      .split('-')[0]
+                      .split('/')[1]
+                  }
+                className: date
+            div.info:
+              className: info
+              div.name:
+                className: name
+                a:
+                  children: '{item.name}'
+                  href: '{item.website}'
+                  rel: noopener noreferrer
+                  tag: a
+                  target: _blank
+              div.location:
+                children: '{item.location}'
+                className: location
+              ul:
+                className: tags
+                $map:
+                  array: '(item.tags ? item.tags.split('' '') : [])'
+                  method: map
+                  element: tag
+                  li:
+                    key: '{tag}'
+                    className: tag
+                    Link:
+                      children: '{tag}'
+                      className:
+                        - tagLink
+                        - condition: tag === this.props.tag
+                          className: selected
+                      to: '{`tags/${tag}`}'
+            div.actions:
+              className: actions
+              div.buttons:
+                a.diversity:
+                  className:
+                    - icon
+                    - diversity
+                  disabled: '{!item.diversityScholarship}'
+                  href: '{item.diversityScholarship}'
+                  rel: noopener noreferer
+                  target: _blank
+                  title: Offers Diversity Scholarship Program
+                a.conduct:
+                  className:
+                    - icon
+                    - conduct
+                  disabled: '{!item.codeOfConduct}'
+                  href: '{item.codeOfConduct}'
+                  rel: noopener noreferer
+                  target: _blank
+                  title: Has Code of Conduct
+                a.speaker:
+                  className:
+                    - icon
+                    - speaker
+                  disabled: '{!item.speakerRegistration}'
+                  href: '{item.speakerRegistration}'
+                  rel: noopener noreferer
+                  target: _blank
+                  title: Accepting Speaker Applications
+                button.moreInfo:
+                  children: More Info
+                  className: moreInfoButton
+                  onClick: toggle
+                a.attend:
+                  children: '{item.attendUrl ? ''Attend'' : ''n/a''}'
+                  className: attendButton
+                  disabled: '{!item.attendUrl}'
+                  href: '{item.attendUrl}'
+                  rel: noopener noreferer
+                  target: _blank
+              div.cost:
+                children: '{item.cost}'
+                className: cost
+          div.moreInfo:
+            className:
+              - moreInfo
+              - condition: this.state.open === item.name
+                className: open
+            div:
+              className: moreInfoContent
+              h3:
+                children: Description
+              p:
+                children: >-
+                  {item.description || (<em>There is no additional
+                  information.</em>)}
+              ul:
+                className: moreInfoContentList
+                If.codeOfConduct:
+                  condition: '{item.codeOfConduct}'
+                  li:
+                    className: moreInfoContentItem
+                    a:
+                      children: Code of Conduct
+                      className: moreInfoContentButton
+                      href: '{item.codeOfConduct}'
+                      rel: noopener noreferrer
+                      target: _blank
+                If.twitter:
+                  condition: '{item.twitter}'
+                  li:
+                    className: moreInfoContentItem
+                    a:
+                      children: '@{item.twitter}'
+                      className: moreInfoContentButton
+                      href: '{`https://twitter.com/${item.twitter}`}'
+                      rel: noopener noreferrer
+                      target: _blank
+                If.website:
+                  condition: '{item.website}'
+                  li:
+                    className: moreInfoContentItem
+                    a:
+                      children: Visit Website
+                      className: moreInfoContentButton
+                      href: '{item.website}'
+                      rel: noopener noreferrer
+                      target: _blank
+                li:
+                  className: moreInfoContentItem
+                  button:
+                    children: Add to Calendar
+                    className: moreInfoContentButton
+                    onClick: addToCalendar
+  styles:
+    actions:
+      width: 45%
+      textAlign: right
+    attendButton:
+      backgroundColor: '#000'
+      border: none
+      borderRadius: 5px
+      color: '#FFF'
+      display: inline-block
+      fontSize: 12px
+      letterSpacing: 2px
+      padding: 10px 20px
+      textAlign: center
+      textTransform: uppercase
+      transition: transform .5s
+      width: 130px
+    'attendButton:hover':
+      textDecoration: none
+      transform: scale(1.1)
+    'attendButton[disabled]':
+      backgroundColor: '#999'
+      cursor: default
+      transform: none
+    calendar:
+      borderRadius: 5px
+      fontSize: 10px
+      textAlign: center
+      overflow: hidden
+      border: 1px red solid
+      marginRight: 10px
+      width: 50px
+    cost:
+      color: '#999'
+      display: inline-block
+      fontSize: 10px
+      textAlign: center
+      width: 130px
+    date:
+      color: red
+      padding: 5px 0
+      fontSize: 14px
+      backgroundColor: '#FFF'
+    icon:
+      backgroundSize: contain
+      backgroundRepeat: no-repeat
+      width: 20px
+      height: 20px
+      display: inline-block
+      verticalAlign: middle
+      marginLeft: 10px
+      transition: transform .5s
+    icon.conduct:
+      backgroundImage: url(/icons/conduct.svg)
+    icon.diversity:
+      backgroundImage: url(/icons/diversity.svg)
+    icon.speaker:
+      backgroundImage: url(/icons/speaker.svg)
+    'icon:hover':
+      transform: scale(1.1)
+    'icon[disabled]':
+      opacity: '.1'
+      transform: none
+    info:
+      width: calc(55% - 50px)
+    item:
+      borderBottom: '1px #EEE solid'
+    item.highlight:
+      backgroundColor: '#EEE !important'
+    list:
+      listStyleType: none
+      margin: 0
+      padding: 0
+      minHeight: 500px
+    location:
+      fontSize: 12px
+    month:
+      backgroundColor: red
+      color: '#FFF'
+      padding: 2px 0
+    moreInfo:
+      backgroundColor: '#EEE'
+      height: 0
+      overflow: hidden
+      transition: height .5s
+    moreInfo.open:
+      height: 300px
+    moreInfoButton:
+      border: none
+      color: '#999'
+      fontSize: 12px
+      letterSpacing: 2px
+      padding: 10px 20px
+      textTransform: uppercase
+      width: 130px
+      background: none
+    'moreInfoButton:hover':
+      color: '#000'
+    moreInfoContent:
+      padding: 20px
+      maxWidth: 1000px
+      margin: 0 auto
+    moreInfoContentButton:
+      border: '1px #666 solid'
+      borderRadius: 5px
+      color: '#000'
+      display: inline-block
+      fontSize: 10px
+      letterSpacing: 2px
+      padding: 10px 20px
+      textTransform: uppercase
+    'moreInfoContentButton:hover':
+      backgroundColor: '#000'
+      color: '#FFF'
+      textDecoration: none
+    moreInfoContentItem:
+      display: inline-block
+      marginRight: 10px
+      marginBottom: 10px
+    moreInfoContentList:
+      listStyle: none
+      margin: '0'
+      padding: 18px 0 0 0
+    name:
+      fontWeight: bold
+      margin: 0 0 5px 0
+    row:
+      alignItems: center
+      display: flex
+      padding: 20px
+      maxWidth: 1000px
+      margin: 0 auto
+    tag:
+      display: inline-block
+      marginRight: 5px
+      marginBottom: 5px
+    tagLink:
+      backgroundColor: '#DDD'
+      borderRadius: 5px
+      color: '#999'
+      display: inline-block
+      padding: 5px 10px
+    'tagLink:hover':
+      textDecoration: none
+      backgroundColor: '#CCC'
+      color: '#666'
+    tags:
+      listStyle: none
+      margin: 0
+      padding: 5px 0 0 0
+      fontSize: 10px
+    selected:
+      backgroundColor: '#933ec5 !important'
+      color: '#FFF !important'
+search:
+  props:
+    filterConduct:
+      type: bool
+      state: filter.conduct
+    filterDistance:
+      type: string
+      state: filter.distance
+    filterDiversity:
+      type: bool
+      state: filter.diversity
+    filterLocation:
+      type: string
+      state: filter.location
+    filterOrder:
+      type: string
+      state: filter.order
+    filterSort:
+      type: string
+      state: filter.sort
+    filterSpeaker:
+      type: bool
+      state: filter.speaker
+    filterValue:
+      type: string
+      state: filter.value
+    updateFilter:
+      type: func
+      dispatch: updateFilter
+    geocode:
+      type: func
+      dispatch: geocode
+  state:
+    hasFocus:
+      type: string
+    distance:
+      type: string
+      default: any
+  events:
+    focus: |-
+      this.setState({
+        hasFocus: true
+      });
+    blur: |-
+      this.setState({
+        hasFocus: false
+      });
+    change:
+      preventDefault: false
+      handler: |-
+        const currentProps = {
+          conduct: this.props.filterConduct,
+          distance: this.props.filterDistance,
+          diversity: this.props.filterDiversity,
+          location: this.props.filterLocation,
+          order: this.props.filterOrder,
+          sort: this.props.filterSort,
+          speaker: this.props.filterSpeaker,
+          value: this.props.filterValue
+        };
+        this.props.updateFilter({
+          ...currentProps,
+          [event.target.name]: event.target.type === 'checkbox'
+            ? event.target.checked
+            : event.target.value
+        });
+    location: |-
+      this.props.geocode({
+        location: this.props.filterLocation
+      });
+  render:
+    div:
+      className:
+        - search
+        - condition: this.state.hasFocus
+          className: focus
+      input:
+        className: filter
+        name: value
+        onBlur: blur
+        onChange: change
+        onFocus: focus
+        placeholder: Find your next conference...
+        value: '{this.props.filterValue}'
+      div:
+        className: content
+        b:
+          children: 'Filters:'
+          className: label
+        div.distance:
+          className: field
+          label.order:
+            children: Distance
+            className: label
+          select.order:
+            name: distance
+            onChange: change
+            value: '{this.props.filterDistance}'
+            $map:
+              array: '[''any'', ''5 mi'', ''10 mi'', ''25 mi'', ''50 mi'', ''100 mi'']'
+              element: option
+              option:
+                children: '{option}'
+                key: '{option}'
+                value: '{option}'
+        If.location:
+          condition: '{this.props.filterDistance !== ''any''}'
+          div:
+            className: field
+            label:
+              children: Near
+              className: label
+              htmlFor: filter-location
+            input:
+              className: input
+              id: filter-location
+              name: location
+              onBlur: location
+              onChange: change
+              value: '{this.props.filterLocation}'
+        div.order:
+          className: field
+          label.order:
+            children: Order
+            className: label
+          select.order:
+            name: order
+            onChange: change
+            value: '{this.props.filterOrder}'
+            $map:
+              array: '[''date'', ''name'']'
+              element: option
+              option:
+                children: '{option}'
+                key: '{option}'
+                value: '{option}'
+        div.sort:
+          className: field
+          label.sort:
+            children: Sort
+            className: label
+          select.sort:
+            name: sort
+            onChange: change
+            value: '{this.props.filterSort}'
+            $map:
+              array: '[''asc'', ''desc'']'
+              element: option
+              option:
+                children: '{option}'
+                key: '{option}'
+                value: '{option}'
+        div.attributes:
+          className: field
+          input.diversity:
+            checked: '{this.state.diversity}'
+            className: checkbox
+            id: filter-diversity
+            name: diversity
+            onChange: change
+            type: checkbox
+          label.diversity:
+            children: Diversity Scholarship
+            className:
+              - label
+              - diversity
+              - attribute
+            htmlFor: filter-diversity
+          input.conduct:
+            checked: '{this.props.filterConduct}'
+            className: checkbox
+            id: filter-conduct
+            name: conduct
+            onChange: change
+            type: checkbox
+          label.conduct:
+            children: Code of Conduct
+            className:
+              - label
+              - conduct
+              - attribute
+            htmlFor: filter-conduct
+          input.speaker:
+            checked: '{this.props.filterSpeaker}'
+            className: checkbox
+            id: filter-speaker
+            name: speaker
+            onChange: change
+            type: checkbox
+          label.speaker:
+            children: Needs Speakers
+            className:
+              - label
+              - speaker
+              - attribute
+            htmlFor: filter-speaker
+  styles:
+    attribute:
+      backgroundPosition: left center
+      backgroundRepeat: no-repeat
+      backgroundSize: 16px
+      paddingLeft: 21px
+    checkbox:
+      margin: 0 5px 0 0
+      verticalAlign: middle
+    conduct:
+      backgroundImage: url(/icons/conduct.svg)
+    content:
+      maxWidth: 960px
+      padding: 0 0 20px 0
+      margin: 0 auto
+      fontSize: 12px
+    diversity:
+      backgroundImage: url(/icons/diversity.svg)
+    field:
+      display: inline-block
+      marginRight: 10px
+      marginBottom: 10px
+    filter:
+      fontSize: 18px
+      padding: 20px 0
+      maxWidth: 960px
+      outline: none
+      border: none
+      margin: 0 auto
+      display: block
+      width: 100%
+      backgroundImage: url(/icons/search.svg)
+      backgroundSize: 24px auto
+      backgroundRepeat: no-repeat
+      backgroundPosition: right center
+      borderBottom: '1px #EEE solid'
+      marginBottom: 20px
+    label:
+      marginRight: 10px
+      verticalAlign: middle
+    search:
+      borderBottom: '2px #EEE solid'
+      borderTop: '3px #933ec5 solid'
+      padding: 0 20px
+    search.focus: {}
+    speaker:
+      backgroundImage: url(/icons/speaker.svg)
+    input:
+      width: 45px

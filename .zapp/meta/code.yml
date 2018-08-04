@@ -1,0 +1,28 @@
+/:
+  keys:
+    - .git
+    - node_modules
+    - package-lock.json
+    - package.json
+    - README.md
+    - src
+    - webpack.config.js
+/src/components/featured:
+  keys:
+    - Featured.jsx
+    - Featured.sass
+/src/components/search:
+  keys:
+    - Search.jsx
+    - Search.sass
+/src/pages/submit:
+  keys:
+    - Submit.jsx
+    - Submit.sass
+/src/icons:
+  keys:
+    - .svg
+/src/components/header:
+  keys:
+    - Header.jsx
+    - Header.sass

@@ -1,0 +1,84 @@
+conferences:
+  state:
+    items:
+      type: array
+  actions:
+    LOAD_CONFERENCES_RES: |-
+      return {
+        ...state,
+        items: action.data.conferences
+      };
+filter:
+  state:
+    conduct:
+      type: boolean
+    distance:
+      type: string
+      default: any
+    diversity:
+      type: boolean
+    location:
+      type: string
+    order:
+      type: string
+      default: date
+    sort:
+      type: string
+      default: asc
+    speaker:
+      type: boolean
+    value:
+      type: string
+  actions:
+    UPDATE_FILTER: |-
+      return {
+        ...state,
+        conduct: action.data.conduct,
+        distance: action.data.distance,
+        diversity: action.data.diversity,
+        location: action.data.location,
+        order: action.data.order,
+        sort: action.data.sort,
+        speaker: action.data.speaker,
+        value: action.data.value
+      };
+submit:
+  state:
+    isComplete:
+      type: boolean
+    isLoading:
+      type: boolean
+  actions:
+    SUBMIT_CONFERENCE_REQ: |-
+      return {
+        ...state,
+        isLoading: true
+      };
+    SUBMIT_CONFERENCE_RES: |-
+      return {
+        ...state,
+        isComplete: true,
+        isLoading: false
+      };
+    RESET_SUBMISSION: |-
+      return {
+        ...state,
+        isComplete: false,
+        isLoading: false
+      };
+geocode:
+  state:
+    latitude:
+      default: -1
+      type: number
+    longitude:
+      default: -1
+      type: number
+  actions:
+    CLEAR_GEOCODE: return initialState;
+    GEOCODE: |-
+      return {
+        ...state,
+        latitude: action.latitude,
+        longitude: action.longitude
+      };

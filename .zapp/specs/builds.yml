@@ -1,0 +1,9 @@
+development:
+  port: 3080
+  config:
+    api:
+      origin: 'http://localhost:5000'
+production:
+  config:
+    api:
+      origin: 'https://api.arrayofconfs.com'

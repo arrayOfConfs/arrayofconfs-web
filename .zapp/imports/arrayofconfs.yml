@@ -1,0 +1,3 @@
+api:
+  filter:
+    - /specs/paths
