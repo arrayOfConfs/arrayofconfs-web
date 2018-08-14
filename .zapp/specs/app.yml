@@ -1,6 +1,6 @@
-title: arrayOfConfs
-name: arrayofconfs-web
-version: 1.0.0
 description: 'Developer conferences and events in a searchable, sortable list.'
-image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/logo.png'
 homepage: 'https://arrayofconfs.com'
+image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/logo.png'
+name: arrayofconfs-web
+title: arrayOfConfs
+version: 1.0.0

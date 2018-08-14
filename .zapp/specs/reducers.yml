@@ -42,6 +42,22 @@ filter:
         speaker: action.data.speaker,
         value: action.data.value
       };
+geocode:
+  state:
+    latitude:
+      default: -1
+      type: number
+    longitude:
+      default: -1
+      type: number
+  actions:
+    CLEAR_GEOCODE: return initialState;
+    GEOCODE: |-
+      return {
+        ...state,
+        latitude: action.latitude,
+        longitude: action.longitude
+      };
 submit:
   state:
     isComplete:
@@ -65,20 +81,4 @@ submit:
         ...state,
         isComplete: false,
         isLoading: false
-      };
-geocode:
-  state:
-    latitude:
-      default: -1
-      type: number
-    longitude:
-      default: -1
-      type: number
-  actions:
-    CLEAR_GEOCODE: return initialState;
-    GEOCODE: |-
-      return {
-        ...state,
-        latitude: action.latitude,
-        longitude: action.longitude
       };

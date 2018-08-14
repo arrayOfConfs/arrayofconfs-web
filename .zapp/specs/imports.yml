@@ -1,10 +1,10 @@
 Featured: ../../components/featured/Featured
+FileSaver: file-saver
 Footer: ../../components/footer/Footer
 Header: ../../components/header/Header
+Heading: ../../components/heading/Heading
 List: ../../components/list/List
 Search: ../../components/search/Search
-moment: moment
-FileSaver: file-saver
-Heading: ../../components/heading/Heading
 axios: axios
 haversine: haversine
+moment: moment
