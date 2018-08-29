@@ -10,40 +10,40 @@ import styles from './Submit.sass';
 import Heading from '../../components/heading/Heading';
 
 class Submit extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			conduct: 'https://',
-			description: '',
-			diversity: 'https://',
-			facebook: '',
-			fromDate: '',
-			github: '',
-			isComplete: false,
-			location: '',
-			multiDate: false,
-			name: '',
-			tags: '',
-			toDate: '',
-			twitter: '',
-			website: 'https://',
-			authorEmail: '',
-			authorName: ''
-		};
-	}
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	handleSubmit(event, data) {
-		event.preventDefault();
-		this.props.submitConference(this.state);
-	}
-	render() {
-		return (
+  constructor(props) {
+    super(props);
+    this.state = {
+      conduct: 'https://',
+      description: '',
+      diversity: 'https://',
+      facebook: '',
+      fromDate: '',
+      github: '',
+      isComplete: false,
+      location: '',
+      multiDate: false,
+      name: '',
+      tags: '',
+      toDate: '',
+      twitter: '',
+      website: 'https://',
+      authorEmail: '',
+      authorName: ''
+    };
+  }
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  handleSubmit(event, data) {
+    event.preventDefault();
+    this.props.submitConference(this.state);
+  }
+  render() {
+    return (
       <div>
 				<Heading
 					title="Add a Conf"
@@ -433,37 +433,37 @@ class Submit extends Component {
 					</div>
 				</form>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Submit.defaultProps = {
-	submitConference: () => {},
-	isLoading: false,
-	isComplete: false
+  submitConference: () => {},
+  isLoading: false,
+  isComplete: false
 };
 
 Submit.propTypes = {
-	submitConference: PropTypes.func,
-	isLoading: PropTypes.bool,
-	isComplete: PropTypes.bool
+  submitConference: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isComplete: PropTypes.bool
 };
 
 function mapStateToProps(state) {
-	return {
-		isLoading: state.submit.isLoading,
-		isComplete: state.submit.isComplete
-	};
+  return {
+    isLoading: state.submit.isLoading,
+    isComplete: state.submit.isComplete
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		submitConference: (...args) => {
-			dispatch(
-				submitConferenceAction(...args)
-			);
-		}
-	};
+  return {
+    submitConference: (...args) => {
+      dispatch(
+        submitConferenceAction(...args)
+      );
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Submit);

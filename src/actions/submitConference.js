@@ -1,20 +1,20 @@
 import ClientAPI from '../../src/apis/client';
 
 export default function submitConference({
-	authorEmail = '',
-	authorName = '',
-	conduct = '',
-	description = '',
-	diversity = '',
-	facebook = '',
-	fromDate = '',
-	github = '',
-	location = '',
-	name = '',
-	tags = '',
-	toDate = '',
-	twitter = '',
-	website = ''
+  authorEmail = '',
+  authorName = '',
+  conduct = '',
+  description = '',
+  diversity = '',
+  facebook = '',
+  fromDate = '',
+  github = '',
+  location = '',
+  name = '',
+  tags = '',
+  toDate = '',
+  twitter = '',
+  website = ''
 } = {}) {
   return async (dispatch) => {
     dispatch({

@@ -4,29 +4,29 @@ const initialState = {
 };
 
 export default function submitReducer(state = initialState, action = {}) {
-	switch (action.type) {
-		case 'SUBMIT_CONFERENCE_REQ': {
-		  return {
+  switch (action.type) {
+    case 'SUBMIT_CONFERENCE_REQ': {
+      return {
         ...state,
         isLoading: true
       };
-		}
-		case 'SUBMIT_CONFERENCE_RES': {
-		  return {
+    }
+    case 'SUBMIT_CONFERENCE_RES': {
+      return {
         ...state,
         isComplete: true,
         isLoading: false
       };
-		}
-		case 'RESET_SUBMISSION': {
-		  return {
+    }
+    case 'RESET_SUBMISSION': {
+      return {
         ...state,
         isComplete: false,
         isLoading: false
       };
-		}
-		default: {
-			return state;
-		}
-	}
+    }
+    default: {
+      return state;
+    }
+  }
 }

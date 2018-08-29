@@ -10,9 +10,9 @@ const initialState = {
 };
 
 export default function filterReducer(state = initialState, action = {}) {
-	switch (action.type) {
-		case 'UPDATE_FILTER': {
-		  return {
+  switch (action.type) {
+    case 'UPDATE_FILTER': {
+      return {
         ...state,
         conduct: action.data.conduct,
         distance: action.data.distance,
@@ -23,9 +23,9 @@ export default function filterReducer(state = initialState, action = {}) {
         speaker: action.data.speaker,
         value: action.data.value
       };
-		}
-		default: {
-			return state;
-		}
-	}
+    }
+    default: {
+      return state;
+    }
+  }
 }

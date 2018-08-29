@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default function geocode({
-	location = ''
+  location = ''
 } = {}) {
   return async (dispatch) => {
     dispatch({

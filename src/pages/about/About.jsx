@@ -5,15 +5,15 @@ import React, { Component, Fragment } from 'react';
 import styles from './About.sass';
 
 class About extends Component {
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	render() {
-		return (
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  render() {
+    return (
       <div className={styles.about}>
 				<div className={styles.content}>
 					<h1>
@@ -24,8 +24,8 @@ class About extends Component {
 					</p>
 				</div>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 export default About;

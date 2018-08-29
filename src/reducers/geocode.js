@@ -4,19 +4,19 @@ const initialState = {
 };
 
 export default function geocodeReducer(state = initialState, action = {}) {
-	switch (action.type) {
-		case 'CLEAR_GEOCODE': {
-		  return initialState;
-		}
-		case 'GEOCODE': {
-		  return {
+  switch (action.type) {
+    case 'CLEAR_GEOCODE': {
+      return initialState;
+    }
+    case 'GEOCODE': {
+      return {
         ...state,
         latitude: action.latitude,
         longitude: action.longitude
       };
-		}
-		default: {
-			return state;
-		}
-	}
+    }
+    default: {
+      return state;
+    }
+  }
 }

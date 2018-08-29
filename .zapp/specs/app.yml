@@ -4,3 +4,4 @@ image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/logo.png'
 name: arrayofconfs-web
 title: arrayOfConfs
 version: 1.0.0
+license: apache-2.0

@@ -7,19 +7,19 @@ import styles from './Header.sass';
 import { Link } from 'react-router';
 
 class Header extends Component {
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	handleSubmit(event, data) {
-		event.preventDefault();
-		
-	}
-	render() {
-		return (
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  handleSubmit(event, data) {
+    event.preventDefault();
+    
+  }
+  render() {
+    return (
       <header className={styles.header}>
 				<div className={styles.headerContent}>
 					<Link
@@ -78,8 +78,8 @@ class Header extends Component {
 					</div>
 				</div>
 			</header>
-		);
-	}
+    );
+  }
 }
 
 export default Header;

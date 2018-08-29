@@ -8,22 +8,22 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 
 class Main extends Component {
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	render() {
-		return (
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  render() {
+    return (
       <div>
         <Header />
         {this.props.children}
         <Footer />
       </div>
-		);
-	}
+    );
+  }
 }
 
 export default Main;

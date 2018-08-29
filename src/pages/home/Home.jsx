@@ -14,18 +14,18 @@ import Featured from '../../components/featured/Featured';
 import haversine from 'haversine';
 
 class Home extends Component {
-	componentDidMount() {
-	  this.props.loadConferences();
-	}
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	render() {
-		return (
+  componentDidMount() {
+    this.props.loadConferences();
+  }
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  render() {
+    return (
       <div className={styles.home}>
         <Featured />
         <Search />
@@ -116,64 +116,64 @@ class Home extends Component {
             }
         />
       </div>
-		);
-	}
+    );
+  }
 }
 
 Home.defaultProps = {
-	items: [],
-	loadConferences: () => {},
-	filterValue: '',
-	filterSort: '',
-	filterDiversity: false,
-	filterConduct: false,
-	filterSpeaker: false,
-	latitude: -1,
-	longitude: -1,
-	filterDistance: '',
-	filterLocation: '',
-	filterOrder: ''
+  items: [],
+  loadConferences: () => {},
+  filterValue: '',
+  filterSort: '',
+  filterDiversity: false,
+  filterConduct: false,
+  filterSpeaker: false,
+  latitude: -1,
+  longitude: -1,
+  filterDistance: '',
+  filterLocation: '',
+  filterOrder: ''
 };
 
 Home.propTypes = {
-	items: PropTypes.array,
-	loadConferences: PropTypes.func,
-	filterValue: PropTypes.string,
-	filterSort: PropTypes.string,
-	filterDiversity: PropTypes.bool,
-	filterConduct: PropTypes.bool,
-	filterSpeaker: PropTypes.bool,
-	latitude: PropTypes.number,
-	longitude: PropTypes.number,
-	filterDistance: PropTypes.string,
-	filterLocation: PropTypes.string,
-	filterOrder: PropTypes.string
+  items: PropTypes.array,
+  loadConferences: PropTypes.func,
+  filterValue: PropTypes.string,
+  filterSort: PropTypes.string,
+  filterDiversity: PropTypes.bool,
+  filterConduct: PropTypes.bool,
+  filterSpeaker: PropTypes.bool,
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  filterDistance: PropTypes.string,
+  filterLocation: PropTypes.string,
+  filterOrder: PropTypes.string
 };
 
 function mapStateToProps(state) {
-	return {
-		items: state.conferences.items,
-		filterValue: state.filter.value,
-		filterSort: state.filter.sort,
-		filterDiversity: state.filter.diversity,
-		filterConduct: state.filter.conduct,
-		filterSpeaker: state.filter.speaker,
-		latitude: state.geocode.latitude,
-		longitude: state.geocode.longitude,
-		filterDistance: state.filter.distance,
-		filterLocation: state.filter.location,
-		filterOrder: state.filter.order
-	};
+  return {
+    items: state.conferences.items,
+    filterValue: state.filter.value,
+    filterSort: state.filter.sort,
+    filterDiversity: state.filter.diversity,
+    filterConduct: state.filter.conduct,
+    filterSpeaker: state.filter.speaker,
+    latitude: state.geocode.latitude,
+    longitude: state.geocode.longitude,
+    filterDistance: state.filter.distance,
+    filterLocation: state.filter.location,
+    filterOrder: state.filter.order
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		loadConferences: (...args) => {
-			dispatch(
-				loadConferencesAction(...args)
-			);
-		}
-	};
+  return {
+    loadConferences: (...args) => {
+      dispatch(
+        loadConferencesAction(...args)
+      );
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

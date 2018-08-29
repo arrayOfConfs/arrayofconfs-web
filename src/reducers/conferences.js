@@ -3,15 +3,15 @@ const initialState = {
 };
 
 export default function conferencesReducer(state = initialState, action = {}) {
-	switch (action.type) {
-		case 'LOAD_CONFERENCES_RES': {
-		  return {
+  switch (action.type) {
+    case 'LOAD_CONFERENCES_RES': {
+      return {
         ...state,
         items: action.data.conferences
       };
-		}
-		default: {
-			return state;
-		}
-	}
+    }
+    default: {
+      return state;
+    }
+  }
 }

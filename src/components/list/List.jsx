@@ -10,22 +10,22 @@ import { Link } from 'react-router';
 import FileSaver from 'file-saver';
 
 class List extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			open: ''
-		};
-	}
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	handleAddToCalendar(event, data) {
-		event.preventDefault();
-		const dates = data.dates.split(' - ');
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: ''
+    };
+  }
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  handleAddToCalendar(event, data) {
+    event.preventDefault();
+    const dates = data.dates.split(' - ');
     
     const content = [
       {
@@ -118,10 +118,10 @@ class List extends Component {
       }
     );
     FileSaver.saveAs(file);
-	}
-	handleToggle(event, data) {
-		event.preventDefault();
-		if (data.name === this.state.open) {
+  }
+  handleToggle(event, data) {
+    event.preventDefault();
+    if (data.name === this.state.open) {
       this.setState({
         open: ''
       });
@@ -130,9 +130,9 @@ class List extends Component {
     this.setState({
       open: data.name
     });
-	}
-	render() {
-		return (
+  }
+  render() {
+    return (
       <ul className={styles.list}>
 				{this.props.items.map((item) => {
 					return (
@@ -328,16 +328,16 @@ class List extends Component {
 					);
 				})}
 			</ul>
-		);
-	}
+    );
+  }
 }
 
 List.defaultProps = {
-	tag: ''
+  tag: ''
 };
 
 List.propTypes = {
-	tag: PropTypes.string
+  tag: PropTypes.string
 };
 
 export default List;

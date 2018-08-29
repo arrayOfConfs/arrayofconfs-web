@@ -5,10 +5,10 @@ import React, { Component, Fragment } from 'react';
 import styles from './Featured.sass';
 
 class Featured extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			featuredConfs: [
+  constructor(props) {
+    super(props);
+    this.state = {
+      featuredConfs: [
 		{
 			'name': 'AWS re:Invent',
 			'dates': 'Nov 26 - 30',
@@ -31,11 +31,11 @@ class Featured extends Component {
 			'image': 'https://s3.amazonaws.com/arrayofconfs-prod-static/developerweek-austin.jpg'
 		}
 	],
-			selectedConfIndex: -1
-		};
-	}
-	componentDidMount() {
-	  this.setState({
+      selectedConfIndex: -1
+    };
+  }
+  componentDidMount() {
+    this.setState({
       selectedConfIndex: 0
     });
     setInterval(() => {
@@ -46,16 +46,16 @@ class Featured extends Component {
         selectedConfIndex: newIndex
       });
     }, 5000);
-	}
-	handleChange(event) {
-	  this.setState({
-	    [event.target.name]: event.target.type === 'checkbox'
-	      ? event.target.checked
-	      : event.target.value
-	  });
-	}
-	render() {
-		return (
+  }
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    });
+  }
+  render() {
+    return (
       <div className={styles.featured}>
 				{this.state.featuredConfs.map((conf, confIndex) => {
 					return (
@@ -90,8 +90,8 @@ class Featured extends Component {
 					);
 				})}
 			</div>
-		);
-	}
+    );
+  }
 }
 
 export default Featured;

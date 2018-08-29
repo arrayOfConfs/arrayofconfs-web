@@ -17,6 +17,7 @@ const serverConfigs = {
   production: {
   }
 };
+
 const serverConfig = Object.assign({}, serverConfigs.default, serverConfigs[env]);
 
 const host = process.env.HOST || serverConfig.host;
@@ -49,6 +50,7 @@ const configs = {
     outputPath: 'build'
   }
 };
+
 const webpackConfig = Object.assign({}, configs.default, configs[env]);
 const { app, baseHref, config, outputPath } = webpackConfig;
 
@@ -66,6 +68,7 @@ const plugins = [
     }
   })
 ];
+
 if (fs.existsSync(path.join(__dirname, 'src', 'icons'))) {
   plugins.push(
     new CopyWebpackPlugin([
@@ -73,6 +76,7 @@ if (fs.existsSync(path.join(__dirname, 'src', 'icons'))) {
     ])
   );
 }
+
 if (env === 'production') {
   plugins.push(
     new webpack.DefinePlugin({

@@ -1,12 +1,12 @@
 export default function updateFilter({
-	conduct = false,
-	diversity = false,
-	order = 'date',
-	sort = 'asc',
-	speaker = false,
-	value = '',
-	distance = '',
-	location = ''
+  conduct = false,
+  diversity = false,
+  order = 'date',
+  sort = 'asc',
+  speaker = false,
+  value = '',
+  distance = '',
+  location = ''
 } = {}) {
   return async (dispatch) => {
     dispatch({

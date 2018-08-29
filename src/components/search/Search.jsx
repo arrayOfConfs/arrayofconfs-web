@@ -10,27 +10,27 @@ import geocodeAction from '../../actions/geocode';
 import styles from './Search.sass';
 
 class Search extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			hasFocus: '',
-			distance: 'any'
-		};
-	}
-	handleFocus(event, data) {
-		event.preventDefault();
-		this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasFocus: '',
+      distance: 'any'
+    };
+  }
+  handleFocus(event, data) {
+    event.preventDefault();
+    this.setState({
       hasFocus: true
     });
-	}
-	handleBlur(event, data) {
-		event.preventDefault();
-		this.setState({
+  }
+  handleBlur(event, data) {
+    event.preventDefault();
+    this.setState({
       hasFocus: false
     });
-	}
-	handleChange(event, data) {
-		const currentProps = {
+  }
+  handleChange(event, data) {
+    const currentProps = {
       conduct: this.props.filterConduct,
       distance: this.props.filterDistance,
       diversity: this.props.filterDiversity,
@@ -46,15 +46,15 @@ class Search extends Component {
         ? event.target.checked
         : event.target.value
     });
-	}
-	handleLocation(event, data) {
-		event.preventDefault();
-		this.props.geocode({
+  }
+  handleLocation(event, data) {
+    event.preventDefault();
+    this.props.geocode({
       location: this.props.filterLocation
     });
-	}
-	render() {
-		return (
+  }
+  render() {
+    return (
       <div className={classNames(
 				styles.search,
 				this.state.hasFocus
@@ -225,62 +225,62 @@ class Search extends Component {
 					</div>
 				</div>
 			</div>
-		);
-	}
+    );
+  }
 }
 
 Search.defaultProps = {
-	filterConduct: false,
-	filterDistance: '',
-	filterDiversity: false,
-	filterLocation: '',
-	filterOrder: '',
-	filterSort: '',
-	filterSpeaker: false,
-	filterValue: '',
-	updateFilter: () => {},
-	geocode: () => {}
+  filterConduct: false,
+  filterDistance: '',
+  filterDiversity: false,
+  filterLocation: '',
+  filterOrder: '',
+  filterSort: '',
+  filterSpeaker: false,
+  filterValue: '',
+  updateFilter: () => {},
+  geocode: () => {}
 };
 
 Search.propTypes = {
-	filterConduct: PropTypes.bool,
-	filterDistance: PropTypes.string,
-	filterDiversity: PropTypes.bool,
-	filterLocation: PropTypes.string,
-	filterOrder: PropTypes.string,
-	filterSort: PropTypes.string,
-	filterSpeaker: PropTypes.bool,
-	filterValue: PropTypes.string,
-	updateFilter: PropTypes.func,
-	geocode: PropTypes.func
+  filterConduct: PropTypes.bool,
+  filterDistance: PropTypes.string,
+  filterDiversity: PropTypes.bool,
+  filterLocation: PropTypes.string,
+  filterOrder: PropTypes.string,
+  filterSort: PropTypes.string,
+  filterSpeaker: PropTypes.bool,
+  filterValue: PropTypes.string,
+  updateFilter: PropTypes.func,
+  geocode: PropTypes.func
 };
 
 function mapStateToProps(state) {
-	return {
-		filterConduct: state.filter.conduct,
-		filterDistance: state.filter.distance,
-		filterDiversity: state.filter.diversity,
-		filterLocation: state.filter.location,
-		filterOrder: state.filter.order,
-		filterSort: state.filter.sort,
-		filterSpeaker: state.filter.speaker,
-		filterValue: state.filter.value
-	};
+  return {
+    filterConduct: state.filter.conduct,
+    filterDistance: state.filter.distance,
+    filterDiversity: state.filter.diversity,
+    filterLocation: state.filter.location,
+    filterOrder: state.filter.order,
+    filterSort: state.filter.sort,
+    filterSpeaker: state.filter.speaker,
+    filterValue: state.filter.value
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		updateFilter: (...args) => {
-			dispatch(
-				updateFilterAction(...args)
-			);
-		},
-		geocode: (...args) => {
-			dispatch(
-				geocodeAction(...args)
-			);
-		}
-	};
+  return {
+    updateFilter: (...args) => {
+      dispatch(
+        updateFilterAction(...args)
+      );
+    },
+    geocode: (...args) => {
+      dispatch(
+        geocodeAction(...args)
+      );
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

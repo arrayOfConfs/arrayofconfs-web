@@ -23,9 +23,9 @@ import conferencesReducer from './reducers/conferences';
 
 import filterReducer from './reducers/filter';
 
-import submitReducer from './reducers/submit';
-
 import geocodeReducer from './reducers/geocode';
+
+import submitReducer from './reducers/submit';
 
 import MainTemplate from './templates/main/Main';
 
@@ -34,33 +34,33 @@ import './App.sass';
 const router = routerMiddleware(browserHistory);
 
 const store = createStore(
-	combineReducers({
-		routing: routerReducer,
-		conferences: conferencesReducer,
-		filter: filterReducer,
-		submit: submitReducer,
-		geocode: geocodeReducer
-	}),
-	applyMiddleware(
-		thunk,
-		router
-	)
+  combineReducers({
+    routing: routerReducer,
+    conferences: conferencesReducer,
+    filter: filterReducer,
+    geocode: geocodeReducer,
+    submit: submitReducer
+  }),
+  applyMiddleware(
+    thunk,
+    router
+  )
 );
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
-	<Provider store={store}>
-		<Router history={history}>
-			<Route path="/" component={ MainTemplate }>
-				<IndexRoute component={ HomePage } />
-				<Route path="about" component={ AboutPage } />
-				<Route path="contact" component={ ContactPage } />
-				<Route path="submit" component={ SubmitPage } />
-				<Route path="tags" component={ HomePage } />
-				<Route path="tags/:tagName" component={ HomePage } />
-			</Route>
-		</Router>
-	</Provider>,
-	document.getElementById('app')
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={ MainTemplate }>
+        <IndexRoute component={ HomePage } />
+        <Route path="about" component={ AboutPage } />
+        <Route path="contact" component={ ContactPage } />
+        <Route path="submit" component={ SubmitPage } />
+        <Route path="tags" component={ HomePage } />
+        <Route path="tags/:tagName" component={ HomePage } />
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('app')
 );
