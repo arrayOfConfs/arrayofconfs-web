@@ -422,8 +422,8 @@ list:
                 children: |-
                   {
                     moment(
-                      item.dates.split('/')[0],
-                      'M'
+                      item.dates.split('/')[1],
+                      'MM'
                     )
                       .format('MMM')
                   }
@@ -433,7 +433,7 @@ list:
                   {
                     item.dates
                       .split('-')[0]
-                      .split('/')[1]
+                      .split('/')[2]
                   }
                 className: date
             div.info:
@@ -441,7 +441,9 @@ list:
               div.name:
                 className: name
                 a:
-                  children: '{item.name}'
+                  children: >-
+                    {item.name}{item.isOld ? <span className={styles.old}>(PAST
+                    CONF)</span> : ''}
                   href: '{item.website}'
                   rel: noopener noreferrer
                   tag: a
@@ -714,6 +716,10 @@ list:
     selected:
       backgroundColor: '#933ec5 !important'
       color: '#FFF !important'
+    old:
+      color: '#999'
+      display: inline-block
+      marginLeft: 5px
 search:
   props:
     filterConduct:
@@ -728,6 +734,9 @@ search:
     filterLocation:
       type: string
       state: filter.location
+    filterOld:
+      type: bool
+      state: filter.old
     filterOrder:
       type: string
       state: filter.order
@@ -740,12 +749,12 @@ search:
     filterValue:
       type: string
       state: filter.value
-    updateFilter:
-      type: func
-      dispatch: updateFilter
     geocode:
       type: func
       dispatch: geocode
+    updateFilter:
+      type: func
+      dispatch: updateFilter
   state:
     hasFocus:
       type: string
@@ -769,6 +778,7 @@ search:
           distance: this.props.filterDistance,
           diversity: this.props.filterDiversity,
           location: this.props.filterLocation,
+          old: this.props.filterOld,
           order: this.props.filterOrder,
           sort: this.props.filterSort,
           speaker: this.props.filterSpeaker,
@@ -910,6 +920,20 @@ search:
               - speaker
               - attribute
             htmlFor: filter-speaker
+          input.old:
+            checked: '{this.props.filterOld}'
+            className: checkbox
+            id: filter-old
+            name: old
+            onChange: change
+            type: checkbox
+          label.old:
+            children: Old Confs
+            className:
+              - label
+              - old
+              - attribute
+            htmlFor: filter-old
   styles:
     attribute:
       backgroundPosition: left center
@@ -959,3 +983,5 @@ search:
       backgroundImage: url(/icons/speaker.svg)
     input:
       width: 45px
+    old:
+      backgroundImage: url(/icons/old.svg)

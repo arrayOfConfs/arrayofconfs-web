@@ -36,9 +36,25 @@ class HomePage extends Component {
             items={
               this.props.items
                 .filter(item => {
-                  const aDate = moment(item.dates.split(' ')[0], 'M/D');
+                  if (this.props.filterPast) {
+                    return true;
+                  }
+                  const aDate = moment(item.dates.split(' ')[0], 'YYYY/MM/DD');
                   const bDate = moment();
                   return aDate > bDate;
+                })
+                .map(item => {
+                  if (this.props.filterPast) {
+                    const aDate = moment(item.dates.split(' ')[0], 'YYYY/MM/DD');
+                    const bDate = moment();
+                    if (aDate < bDate) {
+                      return {
+                        ...item,
+                        isPast: true
+                      };
+                    }
+                  }
+                  return item;
                 })
                 .filter(item => {
                   if (
@@ -104,8 +120,8 @@ class HomePage extends Component {
                     }
                     return 0;
                   }
-                  const aDate = moment(a.dates.split(' ')[0], 'M/D');
-                  const bDate = moment(b.dates.split(' ')[0], 'M/D');
+                  const aDate = moment(a.dates.split(' ')[0], 'YYYY/MM/DD');
+                  const bDate = moment(b.dates.split(' ')[0], 'YYYY/MM/DD');
                   if (this.props.filterSort === 'desc') {
                     if (aDate > bDate) {
                       return -1;
@@ -140,7 +156,8 @@ HomePage.defaultProps = {
   longitude: -1,
   filterDistance: '',
   filterLocation: '',
-  filterOrder: ''
+  filterOrder: '',
+  filterPast: false
 };
 
 HomePage.propTypes = {
@@ -155,7 +172,8 @@ HomePage.propTypes = {
   longitude: PropTypes.number,
   filterDistance: PropTypes.string,
   filterLocation: PropTypes.string,
-  filterOrder: PropTypes.string
+  filterOrder: PropTypes.string,
+  filterPast: PropTypes.bool
 };
 
 function mapStateToProps(state) {
@@ -170,7 +188,8 @@ function mapStateToProps(state) {
     longitude: state.geocode.longitude,
     filterDistance: state.filter.distance,
     filterLocation: state.filter.location,
-    filterOrder: state.filter.order
+    filterOrder: state.filter.order,
+    filterPast: state.filter.past
   };
 }
 

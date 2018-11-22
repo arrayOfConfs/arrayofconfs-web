@@ -79,13 +79,14 @@
 /actions/updateFilter/arguments:
   keys:
     - conduct
+    - distance
     - diversity
+    - location
     - order
+    - past
     - sort
     - speaker
     - value
-    - distance
-    - location
 /actions/updateFilter/handler:
   type: code
   mode: javascript
@@ -967,6 +968,9 @@
     - rel
     - tag
     - target
+/components/list/render/list/%24map/li/div.row/div.info/div.name/a/children:
+  type: code
+  mode: jsx
 /components/list/render/list/%24map/li/div.row/div.info/div.name/a/href:
   type: code
   mode: jsx
@@ -1061,6 +1065,7 @@
     - 'tagLink:hover'
     - tags
     - selected
+    - old
 /components/list/styles/actions:
   keys:
     - width
@@ -1248,6 +1253,11 @@
     - reducers
     - templates
     - styles
+/components/list/styles/old:
+  keys:
+    - color
+    - display
+    - marginLeft
 /components/list/styles/row:
   keys:
     - alignItems
@@ -1329,12 +1339,13 @@
     - filterDistance
     - filterDiversity
     - filterLocation
+    - filterOld
     - filterOrder
     - filterSort
     - filterSpeaker
     - filterValue
-    - updateFilter
     - geocode
+    - updateFilter
 /components/search/props/filterConduct:
   keys:
     - type
@@ -1348,6 +1359,10 @@
     - type
     - state
 /components/search/props/filterLocation:
+  keys:
+    - type
+    - state
+/components/search/props/filterOld:
   keys:
     - type
     - state
@@ -1455,7 +1470,8 @@
     - label.conduct
     - input.speaker
     - label.speaker
-    - input.speaker-0
+    - input.old
+    - label.old
 /components/search/render/div/div/div.attributes/input.conduct:
   keys:
     - checked
@@ -1476,6 +1492,17 @@
     - onChange
     - type
 /components/search/render/div/div/div.attributes/input.diversity/checked:
+  type: code
+  mode: jsx
+/components/search/render/div/div/div.attributes/input.old:
+  keys:
+    - checked
+    - className
+    - id
+    - name
+    - onChange
+    - type
+/components/search/render/div/div/div.attributes/input.old/checked:
   type: code
   mode: jsx
 /components/search/render/div/div/div.attributes/input.speaker:
@@ -1501,6 +1528,12 @@
     - className
     - htmlFor
 /components/search/render/div/div/div.attributes/label.diversity/className: {}
+/components/search/render/div/div/div.attributes/label.old:
+  keys:
+    - children
+    - className
+    - htmlFor
+/components/search/render/div/div/div.attributes/label.old/className: {}
 /components/search/render/div/div/div.attributes/label.speaker:
   keys:
     - children
@@ -1630,6 +1663,7 @@
     - search.focus
     - speaker
     - input
+    - old
 /components/search/styles/attribute:
   keys:
     - backgroundPosition
@@ -1680,6 +1714,9 @@
   keys:
     - marginRight
     - verticalAlign
+/components/search/styles/old:
+  keys:
+    - backgroundImage
 /components/search/styles/search:
   keys:
     - borderBottom
@@ -1828,6 +1865,7 @@
     - filterDistance
     - filterLocation
     - filterOrder
+    - filterPast
 /pages/home/props/filterConduct:
   keys:
     - type
@@ -1844,7 +1882,15 @@
   keys:
     - type
     - state
+/pages/home/props/filterOld:
+  keys:
+    - type
+    - state
 /pages/home/props/filterOrder:
+  keys:
+    - type
+    - state
+/pages/home/props/filterPast:
   keys:
     - type
     - state
@@ -2533,6 +2579,7 @@
     - diversity
     - location
     - order
+    - past
     - sort
     - speaker
     - value
@@ -2549,10 +2596,14 @@
 /reducers/filter/state/location:
   keys:
     - type
+/reducers/filter/state/old:
+  keys: []
 /reducers/filter/state/order:
   keys:
     - type
     - default
+/reducers/filter/state/past:
+  keys: []
 /reducers/filter/state/sort:
   keys:
     - type

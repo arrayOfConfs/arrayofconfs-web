@@ -94,13 +94,14 @@ submitConference:
 updateFilter:
   arguments:
     conduct: false
+    distance: ''
     diversity: false
+    location: ''
     order: date
+    past: false
     sort: asc
     speaker: false
     value: ''
-    distance: ''
-    location: ''
   handler: |-
     dispatch({
       type: 'UPDATE_FILTER',
@@ -110,6 +111,7 @@ updateFilter:
         diversity,
         location,
         order,
+        past,
         sort,
         speaker,
         value

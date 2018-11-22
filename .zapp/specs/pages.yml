@@ -80,6 +80,9 @@ home:
     filterOrder:
       type: string
       state: filter.order
+    filterPast:
+      type: bool
+      state: filter.past
   render: |-
     <div className={styles.home}>
       <Featured />
@@ -89,9 +92,25 @@ home:
         items={
           this.props.items
             .filter(item => {
-              const aDate = moment(item.dates.split(' ')[0], 'M/D');
+              if (this.props.filterOld) {
+                return true;
+              }
+              const aDate = moment(item.dates.split(' ')[0], 'YYYY/MM/DD');
               const bDate = moment();
               return aDate > bDate;
+            })
+            .map(item => {
+              if (this.props.filterOld) {
+                const aDate = moment(item.dates.split(' ')[0], 'YYYY/MM/DD');
+                const bDate = moment();
+                if (aDate < bDate) {
+                  return {
+                    ...item,
+                    isOld: true
+                  };
+                }
+              }
+              return item;
             })
             .filter(item => {
               if (
@@ -157,8 +176,8 @@ home:
                 }
                 return 0;
               }
-              const aDate = moment(a.dates.split(' ')[0], 'M/D');
-              const bDate = moment(b.dates.split(' ')[0], 'M/D');
+              const aDate = moment(a.dates.split(' ')[0], 'YYYY/MM/DD');
+              const bDate = moment(b.dates.split(' ')[0], 'YYYY/MM/DD');
               if (this.props.filterSort === 'desc') {
                 if (aDate > bDate) {
                   return -1;

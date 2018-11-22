@@ -155,8 +155,8 @@ class List extends Component {
 										<div className={styles.month}>
 											{
   moment(
-    item.dates.split('/')[0],
-    'M'
+    item.dates.split('/')[1],
+    'MM'
   )
     .format('MMM')
 }
@@ -165,7 +165,7 @@ class List extends Component {
 											{
   item.dates
     .split('-')[0]
-    .split('/')[1]
+    .split('/')[2]
 }
 										</div>
 									</div>
@@ -176,7 +176,7 @@ class List extends Component {
 												rel="noopener noreferrer"
 												target="_blank"
 											>
-												{item.name}
+												{item.name}{item.isPast ? <span className={styles.past}>(PAST CONF)</span> : ''}
 											</a>
 										</div>
 										<div className={styles.location}>

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import updateFilterAction from '../../actions/updateFilter';
-
 import geocodeAction from '../../actions/geocode';
+
+import updateFilterAction from '../../actions/updateFilter';
 
 import styles from './Search.sass';
 
@@ -39,6 +39,7 @@ class Search extends Component {
       distance: this.props.filterDistance,
       diversity: this.props.filterDiversity,
       location: this.props.filterLocation,
+      old: this.props.filterOld,
       order: this.props.filterOrder,
       sort: this.props.filterSort,
       speaker: this.props.filterSpeaker,
@@ -79,7 +80,7 @@ class Search extends Component {
 						className={styles.filter}
 					/>
 					<div className={styles.content}>
-						<b className={styles.label}>
+						<b className={styles.title}>
 							Filters:
 						</b>
 						<div className={styles.field}>
@@ -184,7 +185,7 @@ class Search extends Component {
 							<label
 								htmlFor="filter-diversity"
 								className={classNames(
-									styles.label,
+									styles.checkboxLabel,
 									styles.diversity,
 									styles.attribute
 								)}
@@ -203,7 +204,7 @@ class Search extends Component {
 							<label
 								htmlFor="filter-conduct"
 								className={classNames(
-									styles.label,
+									styles.checkboxLabel,
 									styles.conduct,
 									styles.attribute
 								)}
@@ -222,12 +223,31 @@ class Search extends Component {
 							<label
 								htmlFor="filter-speaker"
 								className={classNames(
-									styles.label,
+									styles.checkboxLabel,
 									styles.speaker,
 									styles.attribute
 								)}
 							>
 								Needs Speakers
+							</label>
+							<input
+								checked={this.props.filterOld}
+								id="filter-past"
+								name="past"
+								onChange={event => this.handleChange(event)}
+								type="checkbox"
+							
+								className={styles.checkbox}
+							/>
+							<label
+								htmlFor="filter-past"
+								className={classNames(
+									styles.checkboxLabel,
+									styles.old,
+									styles.attribute
+								)}
+							>
+								Past Confs
 							</label>
 						</div>
 					</div>
@@ -242,12 +262,13 @@ Search.defaultProps = {
   filterDistance: '',
   filterDiversity: false,
   filterLocation: '',
+  filterPast: false,
   filterOrder: '',
   filterSort: '',
   filterSpeaker: false,
   filterValue: '',
-  updateFilter: () => {},
-  geocode: () => {}
+  geocode: () => {},
+  updateFilter: () => {}
 };
 
 Search.propTypes = {
@@ -255,12 +276,13 @@ Search.propTypes = {
   filterDistance: PropTypes.string,
   filterDiversity: PropTypes.bool,
   filterLocation: PropTypes.string,
+  filterPast: PropTypes.bool,
   filterOrder: PropTypes.string,
   filterSort: PropTypes.string,
   filterSpeaker: PropTypes.bool,
   filterValue: PropTypes.string,
-  updateFilter: PropTypes.func,
-  geocode: PropTypes.func
+  geocode: PropTypes.func,
+  updateFilter: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -269,6 +291,7 @@ function mapStateToProps(state) {
     filterDistance: state.filter.distance,
     filterDiversity: state.filter.diversity,
     filterLocation: state.filter.location,
+    filterPast: state.filter.past,
     filterOrder: state.filter.order,
     filterSort: state.filter.sort,
     filterSpeaker: state.filter.speaker,
@@ -278,14 +301,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateFilter: (...args) => {
-      dispatch(
-        updateFilterAction(...args)
-      );
-    },
     geocode: (...args) => {
       dispatch(
         geocodeAction(...args)
+      );
+    },
+    updateFilter: (...args) => {
+      dispatch(
+        updateFilterAction(...args)
       );
     }
   };

@@ -61,7 +61,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={history} onUpdate={() => { window.scrollTo(100, 100); window.scrollTo(0, 0); }}>
+        <Router history={history}>
           <ScrollToTop>
             <Helmet
               titleTemplate="%s | arrayOfConfs"
@@ -69,11 +69,11 @@ class App extends Component {
             <MainTemplate>
               <Switch>
                 <Route path="/" component={ HomePage } exact />
-                <Route path="about" component={ AboutPage } />
-                <Route path="contact" component={ ContactPage } />
-                <Route path="submit" component={ SubmitPage } />
-                <Route path="tags" component={ HomePage } />
-                <Route path="tags/:tagName" component={ HomePage } />
+                <Route path="/about" component={ AboutPage } />
+                <Route path="/contact" component={ ContactPage } />
+                <Route path="/submit" component={ SubmitPage } />
+                <Route path="/tags" component={ HomePage } />
+                <Route path="/tags/:tagName" component={ HomePage } />
               </Switch>
             </MainTemplate>
           </ScrollToTop>
