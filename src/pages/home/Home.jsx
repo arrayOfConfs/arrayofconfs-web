@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import loadConferencesAction from '../../actions/loadConferences';
 
@@ -13,7 +14,7 @@ import moment from 'moment';
 import Featured from '../../components/featured/Featured';
 import haversine from 'haversine';
 
-class Home extends Component {
+class HomePage extends Component {
   componentDidMount() {
     this.props.loadConferences();
   }
@@ -26,101 +27,108 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className={styles.home}>
-        <Featured />
-        <Search />
-        <List
-          tag={this.props.router.params.tagName}
-          items={
-            this.props.items
-              .filter(item => {
-                if (
-                  this.props.filterDistance !== 'any'
-                  &&
-                  this.props.filterLocation
-                  &&
-                  this.props.latitude !== -1
-                  &&
-                  this.props.longitude !== -1
-                  &&
-                  haversine(
-                    {
-                      latitude: this.props.latitude,
-                      longitude: this.props.longitude
-                    },
-                    {
-                      latitude: item.latitude,
-                      longitude: item.longitude
-                    },
-                    {
-                      unit: 'mile'
+      <Fragment>
+        <div className={styles.home}>
+          <Featured />
+          <Search />
+          <List
+            tag={this.props.match.params.tagName}
+            items={
+              this.props.items
+                .filter(item => {
+                  const aDate = moment(item.dates.split(' ')[0], 'M/D');
+                  const bDate = moment();
+                  return aDate > bDate;
+                })
+                .filter(item => {
+                  if (
+                    this.props.filterDistance !== 'any'
+                    &&
+                    this.props.filterLocation
+                    &&
+                    this.props.latitude !== -1
+                    &&
+                    this.props.longitude !== -1
+                    &&
+                    haversine(
+                      {
+                        latitude: this.props.latitude,
+                        longitude: this.props.longitude
+                      },
+                      {
+                        latitude: item.latitude,
+                        longitude: item.longitude
+                      },
+                      {
+                        unit: 'mile'
+                      }
+                    ) > parseInt(this.props.filterDistance, 10)
+                  ) {
+                    return false;
+                  }
+                  if (
+                    (this.props.filterDiversity && !item.diversityScholarship)
+                    ||
+                    (this.props.filterConduct && !item.codeOfConduct)
+                    ||
+                    (this.props.filterSpeaker && !item.speakerRegistration)
+                  ) {
+                    return false;
+                  }
+                  if (
+                    this.props.match.params
+                      && this.props.match.params.tagName
+                      && !item.tags.split(' ').includes(this.props.match.params.tagName)
+                  ) {
+                    return false;
+                  }
+                  return !this.props.filterValue
+                    || new RegExp(this.props.filterValue, 'i').test(item.name)
+                    || new RegExp(this.props.filterValue, 'i').test(item.tags);
+                })
+                .sort((a, b) => {
+                  if (this.props.filterOrder === 'name') {
+                    const aName = a.name.toLowerCase();
+                    const bName = b.name.toLowerCase();
+                    if (this.props.filterSort === 'desc') {
+                      if (aName > bName) {
+                        return -1;
+                      } else if (aName < bName) {
+                        return 1;
+                      }
                     }
-                  ) > parseInt(this.props.filterDistance, 10)
-                ) {
-                  return false;
-                }
-                if (
-                  (this.props.filterDiversity && !item.diversityScholarship)
-                  ||
-                  (this.props.filterConduct && !item.codeOfConduct)
-                  ||
-                  (this.props.filterSpeaker && !item.speakerRegistration)
-                ) {
-                  return false;
-                }
-                if (
-                  this.props.router.params
-                    && this.props.router.params.tagName
-                    && !item.tags.split(' ').includes(this.props.router.params.tagName)
-                ) {
-                  return false;
-                }
-                return !this.props.filterValue
-                  || new RegExp(this.props.filterValue, 'i').test(item.name)
-                  || new RegExp(this.props.filterValue, 'i').test(item.tags);
-              })
-              .sort((a, b) => {
-                if (this.props.filterOrder === 'name') {
-                  const aName = a.name.toLowerCase();
-                  const bName = b.name.toLowerCase();
-                  if (this.props.filterSort === 'desc') {
-                    if (aName > bName) {
+                    if (aName < bName) {
                       return -1;
-                    } else if (aName < bName) {
+                    } else if (aName > bName) {
+                      return 1;
+                    }
+                    return 0;
+                  }
+                  const aDate = moment(a.dates.split(' ')[0], 'M/D');
+                  const bDate = moment(b.dates.split(' ')[0], 'M/D');
+                  if (this.props.filterSort === 'desc') {
+                    if (aDate > bDate) {
+                      return -1;
+                    } else if (aDate < bDate) {
                       return 1;
                     }
                   }
-                  if (aName < bName) {
+                  if (aDate < bDate) {
                     return -1;
-                  } else if (aName > bName) {
+                  } else if (aDate > bDate) {
                     return 1;
                   }
                   return 0;
-                }
-                const aDate = moment(a.dates.split(' ')[0], 'M/D');
-                const bDate = moment(b.dates.split(' ')[0], 'M/D');
-                if (this.props.filterSort === 'desc') {
-                  if (aDate > bDate) {
-                    return -1;
-                  } else if (aDate < bDate) {
-                    return 1;
-                  }
-                }
-                if (aDate < bDate) {
-                  return -1;
-                } else if (aDate > bDate) {
-                  return 1;
-                }
-                return 0;
-              })
-            }
-        />
-      </div>
+                })
+              }
+          />
+        </div>
+      </Fragment>
     );
   }
 }
 
-Home.defaultProps = {
+HomePage.defaultProps = {
   items: [],
   loadConferences: () => {},
   filterValue: '',
@@ -135,7 +143,7 @@ Home.defaultProps = {
   filterOrder: ''
 };
 
-Home.propTypes = {
+HomePage.propTypes = {
   items: PropTypes.array,
   loadConferences: PropTypes.func,
   filterValue: PropTypes.string,
@@ -176,4 +184,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));

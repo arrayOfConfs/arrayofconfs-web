@@ -14,14 +14,16 @@ class Footer extends Component {
   }
   render() {
     return (
-      <footer className={styles.footer}>
-				<div className={styles.zapp}>
-					Generated with ♥️ by <a className={styles.link} href="https://editor.zappjs.com/arrayofconfs/web" rel="noopener noreferer" target="_blank">⚡️ZappJS</a>
-				</div>
-				<div className={styles.copyright}>
-					&copy; 2018 arrayOfConfs
-				</div>
-			</footer>
+      <Fragment>
+        <footer className={styles.footer}>
+					<div className={styles.zapp}>
+						Generated with ♥️ by <a className={styles.link} href="https://editor.zappjs.com/arrayofconfs/web" rel="noopener noreferer" target="_blank">⚡️ZappJS</a>
+					</div>
+					<div className={styles.copyright}>
+						&copy; 2018 arrayOfConfs
+					</div>
+				</footer>
+      </Fragment>
     );
   }
 }

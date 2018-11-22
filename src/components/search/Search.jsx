@@ -18,13 +18,17 @@ class Search extends Component {
     };
   }
   handleFocus(event, data) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({
       hasFocus: true
     });
   }
   handleBlur(event, data) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({
       hasFocus: false
     });
@@ -48,183 +52,187 @@ class Search extends Component {
     });
   }
   handleLocation(event, data) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     this.props.geocode({
       location: this.props.filterLocation
     });
   }
   render() {
     return (
-      <div className={classNames(
-				styles.search,
-				this.state.hasFocus
-					? styles.focus
-					: null
-			)}>
-				<input
-					name="value"
-					onBlur={event => this.handleBlur(event)}
-					onChange={event => this.handleChange(event)}
-					onFocus={event => this.handleFocus(event)}
-					placeholder="Find your next conference..."
-					value={this.props.filterValue}
-				
-					className={styles.filter}
-				/>
-				<div className={styles.content}>
-					<b className={styles.label}>
-						Filters:
-					</b>
-					<div className={styles.field}>
-						<label className={styles.label}>
-							Distance
-						</label>
-						<select
-							name="distance"
-							onChange={event => this.handleChange(event)}
-							value={this.props.filterDistance}
-						>
-							{['any', '5 mi', '10 mi', '25 mi', '50 mi', '100 mi'].map((option) => {
-								return (
-									<option
-										key={option}
-										value={option}
-									>
-										{option}
-									</option>
-								);
-							})}
-						</select>
-					</div>
-					<If condition={this.props.filterDistance !== 'any'}>
-						<div
-							label={{
-								'children': 'Near',
-								className: 'label',
-								htmlFor: 'filter-location'
-							}}
-							className={styles.field}
-						>
-							<label
-								htmlFor="filter-location"
-								className={styles.label}
+      <Fragment>
+        <div className={classNames(
+					styles.search,
+					this.state.hasFocus
+						? styles.focus
+						: null
+				)}>
+					<input
+						name="value"
+						onBlur={event => this.handleBlur(event)}
+						onChange={event => this.handleChange(event)}
+						onFocus={event => this.handleFocus(event)}
+						placeholder="Find your next conference..."
+						value={this.props.filterValue}
+					
+						className={styles.filter}
+					/>
+					<div className={styles.content}>
+						<b className={styles.label}>
+							Filters:
+						</b>
+						<div className={styles.field}>
+							<label className={styles.label}>
+								Distance
+							</label>
+							<select
+								name="distance"
+								onChange={event => this.handleChange(event)}
+								value={this.props.filterDistance}
 							>
-								Near
+								{['any', '5 mi', '10 mi', '25 mi', '50 mi', '100 mi'].map((option) => {
+									return (
+										<option
+											key={option}
+											value={option}
+										>
+											{option}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+						<If condition={this.props.filterDistance !== 'any'}>
+							<div
+								label={{
+									children: 'Near',
+									className: 'label',
+									htmlFor: 'filter-location'
+								}}
+								className={styles.field}
+							>
+								<label
+									htmlFor="filter-location"
+									className={styles.label}
+								>
+									Near
+								</label>
+								<input
+									id="filter-location"
+									name="location"
+									onBlur={event => this.handleLocation(event)}
+									onChange={event => this.handleChange(event)}
+									value={this.props.filterLocation}
+								
+									className={styles.input}
+								/>
+							</div>
+						</If>
+						<div className={styles.field}>
+							<label className={styles.label}>
+								Order
+							</label>
+							<select
+								name="order"
+								onChange={event => this.handleChange(event)}
+								value={this.props.filterOrder}
+							>
+								{['date', 'name'].map((option) => {
+									return (
+										<option
+											key={option}
+											value={option}
+										>
+											{option}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+						<div className={styles.field}>
+							<label className={styles.label}>
+								Sort
+							</label>
+							<select
+								name="sort"
+								onChange={event => this.handleChange(event)}
+								value={this.props.filterSort}
+							>
+								{['asc', 'desc'].map((option) => {
+									return (
+										<option
+											key={option}
+											value={option}
+										>
+											{option}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+						<div className={styles.field}>
+							<input
+								checked={this.state.diversity}
+								id="filter-diversity"
+								name="diversity"
+								onChange={event => this.handleChange(event)}
+								type="checkbox"
+							
+								className={styles.checkbox}
+							/>
+							<label
+								htmlFor="filter-diversity"
+								className={classNames(
+									styles.label,
+									styles.diversity,
+									styles.attribute
+								)}
+							>
+								Diversity Scholarship
 							</label>
 							<input
-								id="filter-location"
-								name="location"
-								onBlur={event => this.handleLocation(event)}
+								checked={this.props.filterConduct}
+								id="filter-conduct"
+								name="conduct"
 								onChange={event => this.handleChange(event)}
-								value={this.props.filterLocation}
+								type="checkbox"
 							
-								className={styles.input}
+								className={styles.checkbox}
 							/>
+							<label
+								htmlFor="filter-conduct"
+								className={classNames(
+									styles.label,
+									styles.conduct,
+									styles.attribute
+								)}
+							>
+								Code of Conduct
+							</label>
+							<input
+								checked={this.props.filterSpeaker}
+								id="filter-speaker"
+								name="speaker"
+								onChange={event => this.handleChange(event)}
+								type="checkbox"
+							
+								className={styles.checkbox}
+							/>
+							<label
+								htmlFor="filter-speaker"
+								className={classNames(
+									styles.label,
+									styles.speaker,
+									styles.attribute
+								)}
+							>
+								Needs Speakers
+							</label>
 						</div>
-					</If>
-					<div className={styles.field}>
-						<label className={styles.label}>
-							Order
-						</label>
-						<select
-							name="order"
-							onChange={event => this.handleChange(event)}
-							value={this.props.filterOrder}
-						>
-							{['date', 'name'].map((option) => {
-								return (
-									<option
-										key={option}
-										value={option}
-									>
-										{option}
-									</option>
-								);
-							})}
-						</select>
-					</div>
-					<div className={styles.field}>
-						<label className={styles.label}>
-							Sort
-						</label>
-						<select
-							name="sort"
-							onChange={event => this.handleChange(event)}
-							value={this.props.filterSort}
-						>
-							{['asc', 'desc'].map((option) => {
-								return (
-									<option
-										key={option}
-										value={option}
-									>
-										{option}
-									</option>
-								);
-							})}
-						</select>
-					</div>
-					<div className={styles.field}>
-						<input
-							checked={this.state.diversity}
-							id="filter-diversity"
-							name="diversity"
-							onChange={event => this.handleChange(event)}
-							type="checkbox"
-						
-							className={styles.checkbox}
-						/>
-						<label
-							htmlFor="filter-diversity"
-							className={classNames(
-								styles.label,
-								styles.diversity,
-								styles.attribute
-							)}
-						>
-							Diversity Scholarship
-						</label>
-						<input
-							checked={this.props.filterConduct}
-							id="filter-conduct"
-							name="conduct"
-							onChange={event => this.handleChange(event)}
-							type="checkbox"
-						
-							className={styles.checkbox}
-						/>
-						<label
-							htmlFor="filter-conduct"
-							className={classNames(
-								styles.label,
-								styles.conduct,
-								styles.attribute
-							)}
-						>
-							Code of Conduct
-						</label>
-						<input
-							checked={this.props.filterSpeaker}
-							id="filter-speaker"
-							name="speaker"
-							onChange={event => this.handleChange(event)}
-							type="checkbox"
-						
-							className={styles.checkbox}
-						/>
-						<label
-							htmlFor="filter-speaker"
-							className={classNames(
-								styles.label,
-								styles.speaker,
-								styles.attribute
-							)}
-						>
-							Needs Speakers
-						</label>
 					</div>
 				</div>
-			</div>
+      </Fragment>
     );
   }
 }

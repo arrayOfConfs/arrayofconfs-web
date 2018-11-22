@@ -1,0 +1,23 @@
+arrayofconfs:
+  arrayofconfs-api:
+    path: ~/Developer/arrayofconfs-api
+    version: master
+zappjs:
+  zapp-generator-axios:
+    path: ~/Developer/zapp-generator-axios
+    version: master
+  zapp-generator-license:
+    path: ~/Developer/zapp-generator-license
+    version: master
+  zapp-generator-npm:
+    path: ~/Developer/zapp-generator-npm
+    version: master
+  zapp-generator-react:
+    path: ~/Developer/zapp-generator-react
+    version: master
+  zapp-generator-readme:
+    path: ~/Developer/zapp-generator-readme
+    version: master
+  zapp-generator-webpack:
+    path: ~/Developer/zapp-generator-webpack
+    version: master

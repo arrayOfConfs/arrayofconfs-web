@@ -26,25 +26,25 @@ const port = process.env.PORT || serverConfig.port;
 const configs = {
   default: {
     app: [
-			'./App.jsx'
+			'./Main.jsx'
 		],
   },
   development: {
     app: [
 			`webpack-dev-server/client?http://${host}:${port}`,
-			'./App.jsx'
+			'./Main.jsx'
 		],
     config: {
-			'api': {
-				'origin': 'http://localhost:5000'
+			api: {
+				origin: 'http://localhost:5000'
 			}
 		},
     outputPath: 'tmp'
   },
   production: {
     config: {
-			'api': {
-				'origin': 'https://api.arrayofconfs.com'
+			api: {
+				origin: 'https://api.arrayofconfs.com'
 			}
 		},
     outputPath: 'build'
@@ -69,10 +69,10 @@ const plugins = [
   })
 ];
 
-if (fs.existsSync(path.join(__dirname, 'src', 'icons'))) {
+if (fs.existsSync(path.join(__dirname, 'src', 'static'))) {
   plugins.push(
     new CopyWebpackPlugin([
-      { from: 'icons', to: 'icons' }
+      { from: 'static', to: '.' }
     ])
   );
 }

@@ -10,25 +10,25 @@ class Featured extends Component {
     this.state = {
       featuredConfs: [
 		{
-			'name': 'AWS re:Invent',
-			'dates': 'Nov 26 - 30',
-			'location': 'Las Vegas, NV',
-			'url': 'https://reinvent.awsevents.com',
-			'image': 'https://s3.amazonaws.com/arrayofconfs-prod-static/aws-reinvent.jpg'
+			name: 'AWS re:Invent',
+			dates: 'Nov 26 - 30',
+			location: 'Las Vegas, NV',
+			url: 'https://reinvent.awsevents.com',
+			image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/aws-reinvent.jpg'
 		},
 		{
-			'name': 'GitHub Universe',
-			'dates': 'Oct 16 - 17',
-			'location': 'San Francisco, CA',
-			'url': 'https://githubuniverse.com',
-			'image': 'https://s3.amazonaws.com/arrayofconfs-prod-static/github-universe.jpg'
+			name: 'GitHub Universe',
+			dates: 'Oct 16 - 17',
+			location: 'San Francisco, CA',
+			url: 'https://githubuniverse.com',
+			image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/github-universe.jpg'
 		},
 		{
-			'name': 'DeveloperWeek Austin',
-			'dates': 'Nov 6 - 8',
-			'location': 'Austin, TX',
-			'url': 'http://www.developerweek.com/Austin',
-			'image': 'https://s3.amazonaws.com/arrayofconfs-prod-static/developerweek-austin.jpg'
+			name: 'DeveloperWeek Austin',
+			dates: 'Nov 6 - 8',
+			location: 'Austin, TX',
+			url: 'http://www.developerweek.com/Austin',
+			image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/developerweek-austin.jpg'
 		}
 	],
       selectedConfIndex: -1
@@ -56,40 +56,42 @@ class Featured extends Component {
   }
   render() {
     return (
-      <div className={styles.featured}>
-				{this.state.featuredConfs.map((conf, confIndex) => {
-					return (
-						<div
-							key={`conf-${confIndex}`}
-							style={{
-								backgroundImage: `url(${conf.image})`
-							}}
-						
-							className={classNames(
-								styles.conf,
-								confIndex === this.state.selectedConfIndex
-								? styles.selected
-								: null
-							)}
-						>
-							<div className={styles.details}>
-								<a
-									href={conf.url}
-									rel="noopener noreferer"
-									target="_blank"
-								
-									className={styles.name}
-								>
-									{conf.name}
-								</a>
-								<div className={styles.city}>
-									{conf.dates} // {conf.location}
+      <Fragment>
+        <div className={styles.featured}>
+					{this.state.featuredConfs.map((conf, confIndex) => {
+						return (
+							<div
+								key={`conf-${confIndex}`}
+								style={{
+									backgroundImage: `url(${conf.image})`
+								}}
+							
+								className={classNames(
+									styles.conf,
+									confIndex === this.state.selectedConfIndex
+									? styles.selected
+									: null
+								)}
+							>
+								<div className={styles.details}>
+									<a
+										href={conf.url}
+										rel="noopener noreferer"
+										target="_blank"
+									
+										className={styles.name}
+									>
+										{conf.name}
+									</a>
+									<div className={styles.city}>
+										{conf.dates} // {conf.location}
+									</div>
 								</div>
 							</div>
-						</div>
-					);
-				})}
-			</div>
+						);
+					})}
+				</div>
+      </Fragment>
     );
   }
 }

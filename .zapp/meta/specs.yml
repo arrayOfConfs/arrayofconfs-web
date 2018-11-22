@@ -1798,6 +1798,7 @@
     - props
     - render
     - styles
+    - withRouter
 /pages/home/hooks:
   keys:
     - actions
@@ -2728,14 +2729,8 @@
     - templates
 /templates/main:
   keys:
-    - actions
-    - app
-    - builds
-    - components
+    - render
     - imports
-    - pages
-    - reducers
-    - templates
     - styles
 /templates/main/render:
   type: code

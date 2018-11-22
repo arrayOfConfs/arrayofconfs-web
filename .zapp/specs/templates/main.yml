@@ -1,8 +1,0 @@
-imports:
-  - Header
-  - Footer
-styles:
-  header:
-    backgroundColor: red
-    color: '#FFF'
-    padding: 20px

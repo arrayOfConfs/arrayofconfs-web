@@ -7,7 +7,7 @@ import styles from './Main.sass';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 
-class Main extends Component {
+class MainTemplate extends Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.type === 'checkbox'
@@ -17,13 +17,15 @@ class Main extends Component {
   }
   render() {
     return (
-      <div>
-        <Header />
-        {this.props.children}
-        <Footer />
-      </div>
+      <Fragment>
+        <div>
+          <Header />
+          {this.props.children}
+          <Footer />
+        </div>
+      </Fragment>
     );
   }
 }
 
-export default Main;
+export default MainTemplate;

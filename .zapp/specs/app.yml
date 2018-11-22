@@ -1,7 +1,7 @@
 description: 'Developer conferences and events in a searchable, sortable list.'
 homepage: 'https://arrayofconfs.com'
 image: 'https://s3.amazonaws.com/arrayofconfs-prod-static/logo.png'
+license: apache-2.0
 name: arrayofconfs-web
 title: arrayOfConfs
 version: 1.0.0
-license: apache-2.0

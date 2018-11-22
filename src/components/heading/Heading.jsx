@@ -14,14 +14,16 @@ class Heading extends Component {
   }
   render() {
     return (
-      <div className={styles.heading}>
-				<h2 className={styles.title}>
-					{this.props.title}
-				</h2>
-				<h3 className={styles.subtitle}>
-					{this.props.subtitle}
-				</h3>
-			</div>
+      <Fragment>
+        <div className={styles.heading}>
+					<h2 className={styles.title}>
+						{this.props.title}
+					</h2>
+					<h3 className={styles.subtitle}>
+						{this.props.subtitle}
+					</h3>
+				</div>
+      </Fragment>
     );
   }
 }

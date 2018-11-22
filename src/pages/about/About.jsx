@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 
 import styles from './About.sass';
 
-class About extends Component {
+class AboutPage extends Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.type === 'checkbox'
@@ -14,18 +14,20 @@ class About extends Component {
   }
   render() {
     return (
-      <div className={styles.about}>
-				<div className={styles.content}>
-					<h1>
-						About arrayOfConfs
-					</h1>
-					<p>
-						Test test test...
-					</p>
+      <Fragment>
+        <div className={styles.about}>
+					<div className={styles.content}>
+						<h1>
+							About arrayOfConfs
+						</h1>
+						<p>
+							Test test test...
+						</p>
+					</div>
 				</div>
-			</div>
+      </Fragment>
     );
   }
 }
 
-export default About;
+export default AboutPage;

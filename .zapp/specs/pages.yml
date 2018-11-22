@@ -85,9 +85,14 @@ home:
       <Featured />
       <Search />
       <List
-        tag={this.props.router.params.tagName}
+        tag={this.props.match.params.tagName}
         items={
           this.props.items
+            .filter(item => {
+              const aDate = moment(item.dates.split(' ')[0], 'M/D');
+              const bDate = moment();
+              return aDate > bDate;
+            })
             .filter(item => {
               if (
                 this.props.filterDistance !== 'any'
@@ -124,9 +129,9 @@ home:
                 return false;
               }
               if (
-                this.props.router.params
-                  && this.props.router.params.tagName
-                  && !item.tags.split(' ').includes(this.props.router.params.tagName)
+                this.props.match.params
+                  && this.props.match.params.tagName
+                  && !item.tags.split(' ').includes(this.props.match.params.tagName)
               ) {
                 return false;
               }
@@ -182,6 +187,7 @@ home:
       padding: 0
     name:
       fontWeight: bold
+  withRouter: true
 submit:
   imports:
     - Heading

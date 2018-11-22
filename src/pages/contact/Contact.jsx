@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 
 import styles from './Contact.sass';
 
-class Contact extends Component {
+class ContactPage extends Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.type === 'checkbox'
@@ -14,18 +14,20 @@ class Contact extends Component {
   }
   render() {
     return (
-      <div className={styles.contact}>
-				<div className={styles.content}>
-					<h1>
-						Contact Us
-					</h1>
-					<p>
-						Test test test...
-					</p>
+      <Fragment>
+        <div className={styles.contact}>
+					<div className={styles.content}>
+						<h1>
+							Contact Us
+						</h1>
+						<p>
+							Test test test...
+						</p>
+					</div>
 				</div>
-			</div>
+      </Fragment>
     );
   }
 }
 
-export default Contact;
+export default ContactPage;
